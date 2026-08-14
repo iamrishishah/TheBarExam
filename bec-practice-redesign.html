@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Questions — Week 1 · The Bar Exam Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@500;600;700&family=Stack+Sans+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1420; --ink2:#101B29; --ink-line:rgba(255,255,255,.09); --ink-sub:#8FA1A9; --ink-mute:#5C6E76;
+  --brand:#00A8D4; --brand-teal:#0ACCAB; --brand-bold:#017F9F; --brand-boldest:#016F8F; --brand-subtlest:#E4F7FB;
+  --paper:#F7F8FA; --bg:#FFFFFF; --sunken:#F5F7F8; --line:#E1E5E8; --line-bold:#889098;
+  --text:#212830; --text-sub:#4A525A; --text-mute:#666E76; --text-disabled:#889098;
+  --success:#137B43; --success-bg:#E6F6EC; --success-ic:#1F9A55;
+  --warning:#8A5806; --warning-bg:#FFF6E0; --warning-ic:#B57407; --warning-bold:#F0B429;
+  --danger:#8E1A1A; --danger-bg:#FDECEC; --danger-ic:#D33A3A;
+  --info:#2743A0; --info-bg:#EEF1FE; --info-ic:#3B5BDB;
+  --r-xs:4px; --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px; --r-full:999px;
+  --hl:"Stack Sans Headline","Segoe UI",sans-serif; --tx:"Stack Sans Text","Segoe UI",sans-serif; --mono:"JetBrains Mono",monospace;
+  --fast:150ms; --med:220ms; --slow:340ms; --ease:cubic-bezier(.2,0,0,1); --ease-in:cubic-bezier(0,0,0,1);
+  --shadow:0 1px 2px rgba(20,26,31,.05), 0 6px 20px -10px rgba(20,26,31,.18);
+  --shadow-lg:0 16px 44px -12px rgba(20,26,31,.32);
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--text); font-family:var(--tx); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased}
+button{font-family:var(--tx)}
+.mono{font-family:var(--mono)}
+[hidden]{display:none !important}
+
+/* ============ SHELL ============ */
+.shell{display:flex; min-height:100vh}
+
+/* ============ SIDEBAR ============ */
+.side{width:250px; flex:none; background:var(--ink); color:#fff; display:flex; flex-direction:column; position:sticky; top:0; height:100vh}
+.side .brand{padding:18px 18px 16px}
+.side .brand svg{width:150px; height:auto; display:block}
+.side .brand svg path[fill="black"]{fill:#EDF3F5}
+.side nav{flex:1; padding:8px 12px; overflow-y:auto}
+.side .grp{font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-mute); padding:16px 12px 6px}
+.side a{display:flex; align-items:center; gap:11px; font-size:13.5px; font-weight:500; color:var(--ink-sub); padding:9px 12px; border-radius:var(--r-md); margin-bottom:2px; position:relative; cursor:pointer; transition:background var(--fast) var(--ease), color var(--fast) var(--ease)}
+.side a svg{flex:none; opacity:.9}
+.side nav a:hover{background:rgba(255,255,255,.06); color:#fff}
+.side nav a.active{background:rgba(0,168,212,.14); color:#fff}
+.side nav a.active::before{content:""; position:absolute; left:-12px; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:linear-gradient(180deg,var(--brand),var(--brand-teal))}
+.profilewrap{position:relative; padding:12px; border-top:1px solid var(--ink-line)}
+.profilecard{width:100%; display:flex; align-items:center; gap:10px; background:none; border:none; padding:8px; border-radius:var(--r-md); cursor:pointer; text-align:left; transition:background var(--fast) var(--ease)}
+.profilecard:hover{background:rgba(255,255,255,.06)}
+.profilecard .pinfo{flex:1; min-width:0}
+.profilecard .pname{display:block; font-size:13px; font-weight:600; color:#fff}
+.profilecard .pmail{display:block; font-size:11px; color:var(--ink-sub); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.profilecard svg{color:var(--ink-mute); flex:none}
+.profilemenu{position:absolute; left:12px; right:12px; bottom:calc(100% + 6px); background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow-lg); padding:6px; display:none; transform-origin:bottom}
+.profilewrap.open .profilemenu{display:block; animation:profIn var(--fast) var(--ease-in)}
+@keyframes profIn{from{opacity:0; transform:scale(.96) translateY(4px)}to{opacity:1; transform:none}}
+.profilemenu a{display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:var(--r-md); font-size:13px; font-weight:500; color:var(--text); cursor:pointer}
+.profilemenu a:hover{background:var(--sunken)}
+.profilemenu a.danger{color:var(--danger-ic)}
+.pmdiv{height:1px; background:var(--line); margin:5px 4px}
+.av{width:32px; height:32px; border-radius:50%; background:var(--brand-bold); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--hl); font-weight:600; font-size:12.5px; flex:none}
+
+/* ============ MAIN ============ */
+.main{flex:1; min-width:0; display:flex; flex-direction:column}
+.topbar{height:60px; flex:none; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:30}
+.topbar .crumb{margin:0}
+.iconbtn{width:36px; height:36px; border-radius:var(--r-md); border:1px solid transparent; background:none; display:flex; align-items:center; justify-content:center; color:var(--text-sub); cursor:pointer; position:relative; transition:background var(--fast) var(--ease)}
+.iconbtn:hover{background:var(--sunken)}
+.savepill{display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--text-mute); font-weight:500}
+.savepill .dot{width:6px; height:6px; border-radius:50%; background:var(--success-ic); transition:background var(--fast) var(--ease)}
+.savepill.saving .dot{background:var(--warning-ic); animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+.content{flex:1; overflow-y:auto}
+.wrap{max-width:960px; margin:0 auto; padding:22px 28px 80px}
+
+/* breadcrumb */
+.crumb{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-mute); margin-bottom:18px}
+.crumb a{color:var(--text-sub); cursor:pointer; transition:color var(--fast) var(--ease)}
+.crumb a:hover{color:var(--brand-boldest)}
+.crumb .sep{color:var(--text-disabled)}
+.crumb .cur{color:var(--text); font-weight:600}
+
+/* page head */
+.pagehead{display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap}
+.pagehead .titleblock .eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--brand-boldest); margin-bottom:6px}
+.pagehead h1{font-family:var(--hl); font-weight:600; font-size:24px; letter-spacing:-.01em; margin:0}
+
+.sectiondivider{height:1px; background:var(--line); margin:22px 0}
+
+.headctrls{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.titleblock h1{display:inline-flex; align-items:center; gap:10px}
+.flagic{background:none; border:none; padding:2px; cursor:pointer; color:var(--text-disabled); display:inline-flex; transition:color var(--fast) var(--ease), transform var(--fast) var(--ease)}
+.flagic:hover{color:var(--text-mute)}
+.flagic:active{transform:scale(.9)}
+.flagic.on{color:var(--warning-ic)}
+.flagic.on svg{fill:var(--warning-bold)}
+
+.timerbox{display:flex; align-items:center; gap:10px; background:var(--sunken); border:1px solid var(--line); border-radius:var(--r-md); padding:7px 14px 7px 7px}
+.timerbox .tlbl{display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:500; color:var(--text-sub); padding-left:5px}
+.timerbox .tlbl .infoic{color:var(--text-disabled); cursor:help; display:flex}
+.playbtn{width:28px; height:28px; border-radius:50%; border:none; background:var(--brand-bold); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex:none; transition:background var(--fast) var(--ease), transform var(--fast) var(--ease)}
+.playbtn:hover{background:var(--brand-boldest)} .playbtn:active{transform:scale(.92)}
+.playbtn.running{background:var(--danger-ic)}
+.playbtn.running:hover{background:var(--danger)}
+.playbtn .ic-play{display:flex} .playbtn .ic-stop{display:none}
+.playbtn.running .ic-play{display:none} .playbtn.running .ic-stop{display:flex}
+/* tooltip */
+.tt{position:relative; display:inline-flex}
+.tt-bubble{position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); background:var(--ink); color:#fff; font-size:11.5px; font-weight:500; line-height:1.4; padding:7px 11px; border-radius:var(--r-sm); white-space:nowrap; opacity:0; pointer-events:none; transition:opacity var(--fast) var(--ease), transform var(--fast) var(--ease); box-shadow:var(--shadow-lg); z-index:50}
+.tt-bubble::after{content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--ink)}
+.tt:hover .tt-bubble, .tt:focus-within .tt-bubble{opacity:1; transform:translateX(-50%) translateY(0)}
+.tt-bubble.wide{white-space:normal; width:200px; text-align:center}
+.clockread{font-family:var(--mono); font-weight:600; font-size:16px; letter-spacing:.01em; color:var(--text); min-width:52px; text-align:center; transition:color var(--fast) var(--ease)}
+.clockread.warn{color:var(--warning-ic)} .clockread.danger{color:var(--danger-ic)}
+
+/* question navigator */
+.qnavbar{display:flex; align-items:center; gap:14px; margin-bottom:18px; flex-wrap:wrap}
+.qjump{display:flex; align-items:center; gap:9px; background:#fff; border:1px solid var(--line); border-radius:var(--r-md); padding:9px 14px; cursor:pointer; font-size:13.5px; font-weight:600; color:var(--text); transition:border-color var(--fast) var(--ease)}
+.qjump:hover{border-color:var(--line-bold)}
+.qjump .car{color:var(--text-mute)}
+.qprogress{flex:1; min-width:120px; height:6px; background:var(--line); border-radius:var(--r-full); overflow:hidden}
+.qprogress > div{height:100%; background:linear-gradient(90deg,var(--brand),var(--brand-teal)); border-radius:var(--r-full); transition:width var(--slow) var(--ease)}
+.qcount{font-size:12.5px; color:var(--text-mute); white-space:nowrap}
+.qcount b{color:var(--text); font-weight:600}
+
+/* question card */
+.qcard{background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:26px 28px; box-shadow:var(--shadow); margin-bottom:18px}
+.qcard .qn{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--text-mute); margin-bottom:10px}
+.qcard p{margin:0 0 12px; font-size:16px; line-height:1.6; color:var(--text)}
+.qcard .marks{display:inline-flex; font-family:var(--mono); font-size:12px; color:var(--text-mute); background:var(--sunken); padding:3px 10px; border-radius:var(--r-full)}
+
+/* editor */
+.editor{background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); overflow:hidden}
+.editor-top{display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:10px}
+.attemptsdd{position:relative}
+.attemptsbtn{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--text-sub); background:var(--sunken); border:1px solid var(--line); border-radius:var(--r-md); padding:8px 13px; cursor:pointer}
+.attemptsbtn:hover{background:var(--line)}
+.attemptsmenu{position:absolute; top:calc(100% + 8px); right:0; width:320px; max-height:360px; overflow-y:auto; background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow-lg); padding:8px; z-index:40; display:none; transform-origin:top right}
+.attemptsdd.open .attemptsmenu{display:block; animation:popIn var(--fast) var(--ease-in)}
+@keyframes popIn{from{opacity:0; transform:scale(.96)}to{opacity:1; transform:none}}
+.amgrp{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-disabled); padding:10px 10px 4px}
+.amitem{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 10px; border-radius:var(--r-md); cursor:pointer; font-size:13px}
+.amitem:hover{background:var(--sunken)}
+.amitem.sel{background:var(--brand-subtlest)}
+.amitem .amdate{font-weight:600; color:var(--text)}
+.amitem .amtime{color:var(--text-mute); font-size:12px; margin-top:1px}
+.amchip{font-size:10.5px; font-weight:600; padding:2px 8px; border-radius:var(--r-full); white-space:nowrap}
+.amchip.done{background:var(--success-bg); color:var(--success)}
+.amchip.pending{background:var(--sunken); color:var(--text-mute)}
+.amcluster{padding:9px 10px; border-radius:var(--r-md); cursor:pointer; font-size:12px; color:var(--text-mute); font-weight:500; display:flex; align-items:center; gap:6px}
+.amcluster:hover{background:var(--sunken)}
+.amcluster svg{transition:transform var(--fast) var(--ease)}
+.amcluster.open svg{transform:rotate(90deg)}
+.amsub{padding-left:14px; display:none}
+.amcluster.open + .amsub{display:block}
+
+.toolbar{display:flex; align-items:center; gap:2px; padding:9px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+.tbtn{width:32px; height:32px; border-radius:var(--r-sm); border:none; background:none; display:flex; align-items:center; justify-content:center; color:var(--text-sub); cursor:pointer; transition:background var(--fast) var(--ease), color var(--fast) var(--ease)}
+.tbtn:hover{background:var(--sunken)} .tbtn.on{background:var(--brand-subtlest); color:var(--brand-boldest)}
+.tdiv{width:1px; height:20px; background:var(--line); margin:0 8px; flex:none}
+.tselect{display:flex; align-items:center; gap:4px; font-size:12.5px; color:var(--text-sub); background:none; border:none; padding:6px 8px; border-radius:var(--r-sm); cursor:pointer}
+.tselect:hover{background:var(--sunken)}
+
+.editor-body{min-height:220px; padding:20px 22px; font-size:15.5px; line-height:1.65; color:var(--text); outline:none}
+.editor-body:empty::before{content:"Type your answer here…"; color:var(--text-disabled)}
+.editor-foot{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 18px; border-top:1px solid var(--line); flex-wrap:wrap}
+.wc{display:flex; flex-direction:column; gap:2px}
+.wc .n{font-family:var(--mono); font-size:12.5px; color:var(--text-mute)}
+.wc .n b{color:var(--text)}
+.wc .goal{font-size:11.5px; color:var(--text-disabled)}
+.efbtns{display:flex; gap:10px}
+.btn{font-family:var(--tx); font-weight:600; font-size:13.5px; padding:10px 18px; border-radius:var(--r-md); border:1px solid transparent; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:background var(--fast) var(--ease), transform var(--fast) var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--brand-bold); color:#fff} .btn-primary:hover{background:var(--brand-boldest)}
+.btn-neutral{background:var(--sunken); color:var(--text); border-color:var(--line)} .btn-neutral:hover{background:var(--line)}
+.btn[disabled]{opacity:.45; cursor:not-allowed; pointer-events:none}
+
+/* bottom nav */
+.bottomnav{position:fixed; left:250px; right:0; bottom:0; background:rgba(255,255,255,.94); backdrop-filter:blur(8px); border-top:1px solid var(--line); padding:14px 28px; display:flex; justify-content:space-between; align-items:center; z-index:25; transition:left var(--med) var(--ease)}
+.content{padding-bottom:76px}
+.navbtn{display:flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; padding:11px 20px; border-radius:var(--r-md); border:1px solid var(--line-bold); background:#fff; color:var(--text); cursor:pointer; transition:background var(--fast) var(--ease)}
+.navbtn:hover{background:var(--sunken)}
+.navbtn[disabled]{opacity:.4; cursor:not-allowed}
+.navbtn.primary{background:var(--brand-bold); color:#fff; border-color:var(--brand-bold)} .navbtn.primary:hover{background:var(--brand-boldest)}
+.navhint{font-size:11.5px; color:var(--text-disabled); display:flex; align-items:center; gap:5px}
+kbd{font-family:var(--mono); font-size:10px; background:var(--sunken); border:1px solid var(--line); border-radius:4px; padding:1px 5px}
+
+/* question palette modal */
+.palscrim{position:fixed; inset:0; background:rgba(10,20,32,.5); display:none; align-items:flex-start; justify-content:center; padding:80px 20px; z-index:60}
+.palscrim.open{display:flex; animation:scrimIn var(--fast) var(--ease-in)}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+.palcard{background:#fff; border-radius:var(--r-xl); width:100%; max-width:560px; box-shadow:var(--shadow-lg); animation:palIn var(--med) var(--ease-in)}
+@keyframes palIn{from{opacity:0; transform:translateY(-10px) scale(.98)}to{opacity:1; transform:none}}
+.palhead{display:flex; justify-content:space-between; align-items:center; padding:18px 22px; border-bottom:1px solid var(--line)}
+.palhead h4{font-family:var(--hl); font-weight:600; font-size:16px; margin:0}
+.pallegend{display:flex; gap:16px; flex-wrap:wrap; padding:14px 22px; border-bottom:1px solid var(--line); font-size:12px; color:var(--text-mute)}
+.pallegend span{display:inline-flex; align-items:center; gap:6px}
+.pallegend i{width:10px; height:10px; border-radius:50%; display:inline-block}
+.palgrid{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; padding:20px 22px 24px}
+.palchip{aspect-ratio:1; border-radius:var(--r-md); border:1.5px solid var(--line); background:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:600; font-size:13.5px; color:var(--text-sub); cursor:pointer; position:relative; transition:all var(--fast) var(--ease)}
+.palchip:hover{border-color:var(--line-bold)}
+.palchip.answered{background:var(--brand-subtlest); border-color:var(--brand); color:var(--brand-boldest)}
+.palchip.flagged::after{content:""; position:absolute; top:-3px; right:-3px; width:9px; height:9px; border-radius:50%; background:var(--warning-bold); border:1.5px solid #fff}
+.palchip.current{background:var(--brand-bold); border-color:var(--brand-bold); color:#fff}
+
+@media (max-width:860px){
+  .side{position:fixed; left:0; top:0; bottom:0; z-index:70; transform:translateX(-100%); transition:transform var(--med) var(--ease)}
+  .side.open{transform:none}
+  .wrap{padding:18px 16px 70px}
+  .palgrid{grid-template-columns:repeat(5,1fr)}
+  .bottomnav{left:0}
+  .topbar .crumb{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="side" id="side">
+    <div class="brand" id="brandLogo"><svg width="120" height="48" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M67.3659 5.64325H63.7104V14.9838H62.6659V5.64325H59.0104V4.73514H67.3659V5.64325Z" fill="#2AAEBC"/>
+<path d="M75.0685 14.9838H74.0894V10.7676C74.0894 9.92433 73.9588 9.27568 73.6324 8.82162C73.3061 8.36757 72.9144 8.17298 72.3269 8.17298C72.0658 8.17298 71.7394 8.23784 71.4783 8.36757C71.2172 8.4973 70.9561 8.62703 70.695 8.82162C70.4339 9.01622 70.238 9.21081 70.0422 9.47027C69.8464 9.72973 69.7158 9.98919 69.6505 10.3135V14.9189H68.6714V4.47568H69.6505V9.21081C69.9769 8.62703 70.3686 8.17298 70.8908 7.84865C71.413 7.52433 72.0005 7.32973 72.588 7.32973C73.0449 7.32973 73.3713 7.3946 73.6977 7.58919C74.0241 7.78379 74.2199 7.97838 74.4158 8.23784C74.6116 8.4973 74.7421 8.88649 74.8074 9.27568C74.8727 9.66487 74.938 10.1189 74.938 10.573V14.9838H75.0685Z" fill="#2AAEBC"/>
+<path d="M80.4213 15.1784C79.8991 15.1784 79.3768 15.0487 78.9199 14.8541C78.463 14.6595 78.0713 14.3351 77.6796 14.0108C77.3533 13.6216 77.0921 13.2324 76.8963 12.7784C76.7005 12.3243 76.6352 11.8054 76.6352 11.2865C76.6352 10.7676 76.7005 10.2487 76.8963 9.7946C77.0921 9.34054 77.3533 8.88649 77.6796 8.56216C78.006 8.23784 78.3977 7.91352 78.8546 7.71892C79.3116 7.52433 79.8338 7.3946 80.356 7.3946C80.8782 7.3946 81.4004 7.52433 81.8574 7.71892C82.3143 7.91352 82.706 8.23784 83.0324 8.56216C83.3587 8.95135 83.6199 9.34054 83.8157 9.7946C84.0115 10.2487 84.0768 10.7676 84.0768 11.2865C84.0768 11.3514 84.0768 11.4162 84.0768 11.5459C84.0768 11.6108 84.0768 11.6757 84.0768 11.6757H77.6796C77.6796 12.0649 77.8102 12.4541 77.9408 12.7784C78.0713 13.1027 78.3324 13.427 78.5282 13.6865C78.7894 13.9459 79.0505 14.1405 79.3768 14.2703C79.7032 14.4 80.0296 14.4649 80.4213 14.4649C80.6824 14.4649 80.9435 14.4 81.1393 14.3351C81.4004 14.2703 81.5963 14.2054 81.7921 14.0757C81.9879 13.9459 82.1838 13.8162 82.3143 13.6216C82.4449 13.427 82.5754 13.2973 82.706 13.0378L83.5546 13.2973C83.424 13.5568 83.2935 13.8162 83.0324 14.0757C82.8365 14.2703 82.5754 14.5297 82.3143 14.6595C82.0532 14.8541 81.7268 14.9838 81.4004 15.0487C81.1393 15.1135 80.8129 15.1784 80.4213 15.1784ZM83.2282 10.8324C83.2282 10.4432 83.0976 10.0541 82.9671 9.72973C82.8365 9.40541 82.5754 9.08108 82.3796 8.88649C82.1185 8.62703 81.8574 8.43243 81.531 8.3027C81.2046 8.17297 80.8782 8.10811 80.4866 8.10811C80.0949 8.10811 79.7685 8.17297 79.4421 8.3027C79.1157 8.43243 78.8546 8.62703 78.5935 8.88649C78.3324 9.14595 78.1366 9.40541 78.006 9.72973C77.8755 10.0541 77.7449 10.4432 77.7449 10.8324H83.2282Z" fill="#2AAEBC"/>
+<path d="M68.0839 26.4C68.0839 26.8541 68.0187 27.2432 67.8228 27.5676C67.627 27.8919 67.4312 28.1513 67.1048 28.4108C66.7784 28.6054 66.452 28.8 66.0603 28.9297C65.6687 29.0595 65.2117 29.1243 64.7548 29.1243H59.7938V18.8108H65.3423C65.6687 18.8108 65.9951 18.8757 66.3215 19.0703C66.5826 19.2 66.8437 19.3946 67.0395 19.6541C67.2353 19.9135 67.4312 20.173 67.4964 20.4973C67.627 20.8216 67.6923 21.1459 67.6923 21.4703C67.6923 21.9892 67.5617 22.4432 67.3006 22.8973C67.0395 23.3513 66.6478 23.6757 66.1909 23.8703C66.7784 24.0649 67.2353 24.3243 67.627 24.7784C67.8881 25.1676 68.0839 25.7514 68.0839 26.4ZM61.7521 20.4973V23.0919H64.4284C64.7548 23.0919 65.0812 22.9622 65.277 22.7676C65.5381 22.5081 65.6034 22.2486 65.6034 21.7946C65.6034 21.4054 65.4729 21.0811 65.277 20.8865C65.0812 20.627 64.8201 20.5622 64.4937 20.5622H61.7521V20.4973ZM66.0603 26.0757C66.0603 25.8811 66.0603 25.6865 65.9951 25.5568C65.9298 25.3622 65.8645 25.2324 65.734 25.1027C65.6034 24.973 65.4729 24.9081 65.3423 24.7784C65.2117 24.7135 65.0159 24.6486 64.8854 24.6486H61.8173V27.373H64.8201C65.0159 27.373 65.1465 27.3081 65.3423 27.2432C65.4729 27.1784 65.6687 27.1135 65.734 26.9838C65.8645 26.8541 65.9298 26.7243 65.9951 26.5297C66.0603 26.4 66.0603 26.2054 66.0603 26.0757Z" fill="black"/>
+<path d="M71.5436 29.1892C71.152 29.1892 70.8256 29.1243 70.4992 28.9946C70.1728 28.8649 69.9117 28.7351 69.6506 28.4757C69.3895 28.2811 69.2589 28.0216 69.1284 27.6973C68.9978 27.4378 68.9325 27.1135 68.9325 26.7243C68.9325 26.4 68.9978 26.0108 69.1936 25.7514C69.3242 25.427 69.5853 25.1676 69.8464 24.973C70.1075 24.7784 70.4992 24.5838 70.8908 24.4541C71.2825 24.3243 71.7394 24.2595 72.1964 24.2595C72.5228 24.2595 72.8492 24.2595 73.1755 24.3243C73.5019 24.3892 73.763 24.4541 74.0241 24.5838V24.1297C74.0241 23.6108 73.8936 23.2216 73.5672 22.9622C73.3061 22.7027 72.8492 22.573 72.2617 22.573C71.87 22.573 71.4783 22.6378 71.0867 22.7676C70.695 22.8973 70.3034 23.1568 69.9117 23.4162L69.3242 22.1838C70.3034 21.5351 71.3478 21.2108 72.5228 21.2108C73.6325 21.2108 74.4811 21.4703 75.0686 21.9892C75.6561 22.5081 75.9825 23.2865 75.9825 24.3243V26.6595C75.9825 26.8541 76.0477 26.9838 76.113 27.1135C76.1783 27.1784 76.3088 27.2433 76.5047 27.2433V28.8649C76.3088 28.9297 76.1783 28.9297 75.9825 28.9297C75.8519 28.9297 75.6561 28.9297 75.5908 28.9297C75.1991 28.9297 74.938 28.8649 74.7422 28.6703C74.5464 28.5405 74.4158 28.2811 74.3505 28.0216L74.2853 27.6324C73.9589 28.0865 73.5019 28.4108 73.045 28.6703C72.6533 29.1243 72.1311 29.1892 71.5436 29.1892ZM72.1311 27.827C72.4575 27.827 72.7839 27.7622 73.045 27.6324C73.3714 27.5027 73.5672 27.373 73.763 27.1784C73.9589 26.9838 74.0894 26.8541 74.0894 26.6595V25.8162C73.8283 25.7514 73.6325 25.6865 73.3061 25.6216C73.045 25.5568 72.7839 25.5568 72.5228 25.5568C72.0006 25.5568 71.6089 25.6865 71.2825 25.8811C70.9561 26.0757 70.8256 26.4 70.8256 26.7243C70.8256 27.0487 70.9561 27.3081 71.2172 27.5676C71.4131 27.6973 71.7394 27.827 72.1311 27.827Z" fill="black"/>
+<path d="M82.3796 23.1568C81.7921 23.1568 81.2699 23.2865 80.8129 23.4811C80.356 23.6757 80.0296 24 79.8338 24.4541V29.0595H77.8755V21.4703H79.6379V23.0919C79.899 22.573 80.2254 22.1838 80.6824 21.8595C81.074 21.5351 81.531 21.4054 81.9879 21.4054C82.1185 21.4054 82.1837 21.4054 82.249 21.4054C82.3143 21.4054 82.3796 21.4054 82.3796 21.4054V23.1568Z" fill="black"/>
+<path d="M90.8656 28.1514V29.0595H83.9463V18.8108H90.7351V19.7189H84.9254V23.4162H90.017V24.2595H84.9254V28.1514H90.8656Z" fill="black"/>
+<path d="M92.8239 21.5351L95.1086 24.4541L95.2392 24.6487L95.3697 24.4541L97.6544 21.5351H98.6988L95.8267 25.2973L98.6988 29.0595H97.6544L95.3697 26.1405L95.2392 25.946L95.1086 26.1405L92.8239 29.0595H91.7142L94.6517 25.2973L91.7795 21.5351H92.8239Z" fill="black"/>
+<path d="M101.767 29.1892C101.375 29.1892 101.049 29.1243 100.722 28.9946C100.396 28.8649 100.135 28.7351 99.8738 28.4757C99.678 28.2811 99.4822 28.0216 99.3516 27.7622C99.221 27.5027 99.1558 27.1784 99.1558 26.8541C99.1558 26.5297 99.2211 26.2054 99.4169 25.8811C99.5474 25.6216 99.8085 25.3622 100.07 25.1676C100.331 24.973 100.657 24.7784 101.049 24.7135C101.44 24.5838 101.897 24.5189 102.354 24.5189C102.746 24.5189 103.138 24.5838 103.529 24.6486C103.921 24.7135 104.313 24.8432 104.574 24.9081V24.2595C104.574 23.6108 104.378 23.0919 103.986 22.7027C103.595 22.3135 103.072 22.1189 102.42 22.1189C102.028 22.1189 101.636 22.1838 101.179 22.3784C100.788 22.5081 100.396 22.7676 99.9391 23.027L99.6127 22.3784C100.135 22.0541 100.592 21.7946 101.049 21.6649C101.506 21.5351 102.028 21.4054 102.485 21.4054C103.399 21.4054 104.117 21.6649 104.704 22.1838C105.227 22.7027 105.488 23.4162 105.488 24.3892V27.7622C105.488 28.0216 105.618 28.1514 105.814 28.1514V28.9946C105.749 28.9946 105.683 28.9946 105.618 28.9946C105.553 28.9946 105.488 28.9946 105.422 28.9946C105.227 28.9946 105.031 28.9297 104.9 28.8C104.77 28.6703 104.639 28.5405 104.639 28.2811V27.6973C104.313 28.1514 103.856 28.4757 103.334 28.7351C102.877 29.1243 102.289 29.1892 101.767 29.1892ZM102.028 28.4757C102.485 28.4757 102.877 28.4108 103.334 28.2162C103.79 28.0216 104.117 27.7622 104.378 27.4378C104.443 27.373 104.508 27.2432 104.574 27.1784C104.639 27.0487 104.639 26.9838 104.639 26.9189V25.6865C104.313 25.5568 103.986 25.4919 103.595 25.427C103.203 25.3622 102.877 25.2973 102.55 25.2973C101.832 25.2973 101.245 25.427 100.853 25.7514C100.396 26.0108 100.2 26.4 100.2 26.9189C100.2 27.1135 100.265 27.3081 100.331 27.5027C100.396 27.6973 100.527 27.8919 100.657 28.0216C100.788 28.1514 100.984 28.2811 101.245 28.4108C101.44 28.4108 101.702 28.4757 102.028 28.4757Z" fill="black"/>
+<path d="M119 29.0595H118.021V24.8432C118.021 23.9351 117.89 23.3514 117.629 22.8973C117.368 22.5081 116.911 22.2486 116.389 22.2486C116.128 22.2486 115.801 22.3135 115.54 22.3784C115.279 22.5081 115.018 22.6378 114.822 22.8324C114.626 23.027 114.431 23.2865 114.235 23.5459C114.039 23.8054 113.974 24.1297 113.843 24.3892V28.9946H112.864V24.7784C112.864 23.8703 112.733 23.2216 112.472 22.8324C112.211 22.4432 111.754 22.2486 111.232 22.2486C110.645 22.2486 110.122 22.4432 109.731 22.8324C109.274 23.2216 108.947 23.7405 108.752 24.3892V28.9946H107.707V21.5351H108.621V23.2216C108.947 22.6378 109.339 22.1838 109.861 21.8595C110.383 21.5351 110.906 21.4054 111.558 21.4054C112.211 21.4054 112.733 21.6 113.125 21.9243C113.517 22.2486 113.778 22.7676 113.843 23.3514C114.561 22.0541 115.54 21.4054 116.781 21.4054C117.172 21.4054 117.564 21.4703 117.825 21.6649C118.151 21.7946 118.347 22.0541 118.543 22.3135C118.739 22.573 118.869 22.9622 118.935 23.3514C119 23.7405 119.065 24.1946 119.065 24.7135V29.0595H119Z" fill="black"/>
+<path d="M59.141 37.946C59.141 37.2973 59.2715 36.7135 59.4674 36.0649C59.6632 35.4811 59.9896 34.8973 60.4465 34.4432C60.8382 33.9892 61.3604 33.6 62.0132 33.2757C62.6007 32.9514 63.3187 32.8216 64.102 32.8216C65.0159 32.8216 65.7992 33.0162 66.5173 33.4703C67.1701 33.8595 67.6923 34.4432 68.0187 35.0919L66.452 36.1297C66.3215 35.8703 66.1909 35.6108 65.9951 35.4162C65.7992 35.2216 65.6034 35.0919 65.4076 34.9622C65.2117 34.8324 64.9506 34.7676 64.7548 34.7027C64.4937 34.6378 64.2979 34.6378 64.102 34.6378C63.6451 34.6378 63.1882 34.7676 62.8618 34.9622C62.4701 35.1568 62.209 35.4162 61.9479 35.7405C61.6868 36.0649 61.5562 36.4541 61.4257 36.8433C61.2951 37.2324 61.2298 37.6865 61.2298 38.0757C61.2298 38.5297 61.2951 38.9838 61.4257 39.373C61.5562 39.7622 61.7521 40.1514 62.0132 40.4757C62.2743 40.8 62.6007 41.0595 62.9271 41.2541C63.2534 41.4487 63.7104 41.5135 64.102 41.5135C64.2979 41.5135 64.559 41.5135 64.7548 41.4487C65.0159 41.3838 65.2117 41.3189 65.4076 41.1892C65.6034 41.0595 65.7992 40.9297 65.9951 40.7351C66.1909 40.5405 66.3215 40.2811 66.452 40.0216L68.0839 40.9297C67.9534 41.3189 67.6923 41.6432 67.4312 41.9676C67.1048 42.2919 66.7784 42.4865 66.452 42.6811C66.0604 42.8757 65.6687 43.0703 65.277 43.1351C64.8854 43.2649 64.4284 43.2649 64.0368 43.2649C63.3187 43.2649 62.6659 43.1351 62.0784 42.8108C61.491 42.4865 60.9687 42.0973 60.5118 41.5784C60.0549 41.0595 59.7285 40.5405 59.5326 39.8919C59.2715 39.2433 59.141 38.5946 59.141 37.946Z" fill="#2AAEBC"/>
+<path d="M72.7839 43.2649C72.1311 43.2649 71.6089 43.1351 71.0867 42.9405C70.5644 42.746 70.1728 42.4216 69.8464 42.0973C69.52 41.7081 69.2589 41.3189 69.0631 40.8649C68.8672 40.4108 68.802 39.8919 68.802 39.373C68.802 38.8541 68.8672 38.3351 69.0631 37.8811C69.2589 37.427 69.52 36.973 69.8464 36.6487C70.1728 36.2595 70.6297 36 71.0867 35.8054C71.6089 35.6108 72.1311 35.4811 72.7839 35.4811C73.4366 35.4811 73.9588 35.6108 74.4811 35.8054C75.0033 36 75.3949 36.3243 75.7213 36.6487C76.0477 37.0378 76.3088 37.427 76.5046 37.8811C76.7005 38.3351 76.7658 38.8541 76.7658 39.373C76.7658 39.8919 76.7005 40.4108 76.5046 40.8649C76.3088 41.3189 76.0477 41.773 75.7213 42.0973C75.3949 42.4865 74.938 42.746 74.4811 42.9405C73.9588 43.2 73.3714 43.2649 72.7839 43.2649ZM70.7603 39.373C70.7603 39.6973 70.8255 40.0216 70.8908 40.2811C71.0214 40.5405 71.1519 40.8 71.2825 40.9946C71.4783 41.1892 71.6741 41.3838 71.9353 41.4487C72.1964 41.5784 72.4575 41.6433 72.7186 41.6433C72.9797 41.6433 73.2408 41.5784 73.5019 41.4487C73.763 41.3189 73.9588 41.1892 74.1547 40.9946C74.3505 40.8 74.4811 40.5405 74.5463 40.2811C74.6769 40.0216 74.6769 39.6973 74.6769 39.373C74.6769 39.0487 74.6116 38.7243 74.5463 38.4649C74.4158 38.2054 74.2852 37.946 74.1547 37.7514C73.9588 37.5568 73.763 37.3622 73.5019 37.2973C73.2408 37.1676 72.9797 37.1027 72.7186 37.1027C72.4575 37.1027 72.1964 37.1676 71.9353 37.2973C71.6741 37.427 71.4783 37.5568 71.2825 37.7514C71.0867 37.946 70.9561 38.2054 70.8908 38.4649C70.8255 38.7243 70.7603 39.0487 70.7603 39.373Z" fill="#2AAEBC"/>
+<path d="M80.356 43.2649C79.5727 43.2649 78.9852 43.0054 78.5935 42.4865C78.2019 41.9676 78.006 41.2541 78.006 40.2811V35.5459H79.9643V39.8919C79.9643 41.0595 80.356 41.6432 81.2046 41.6432C81.5963 41.6432 81.9879 41.5135 82.3143 41.3189C82.6407 41.1243 82.9671 40.7351 83.1629 40.2811V35.6108H85.1212V40.9297C85.1212 41.1243 85.1865 41.2541 85.2518 41.3838C85.3171 41.4487 85.4476 41.5135 85.6434 41.5135V43.1351C85.4476 43.2 85.2518 43.2 85.1212 43.2C84.9907 43.2 84.8601 43.2 84.7296 43.2C84.4032 43.2 84.0768 43.1351 83.881 42.9405C83.6851 42.8108 83.5546 42.5514 83.4893 42.2919L83.424 41.6432C83.0976 42.1622 82.6407 42.5514 82.1185 42.8108C81.5963 43.1351 81.0088 43.2649 80.356 43.2649Z" fill="#2AAEBC"/>
+<path d="M91.6489 37.2324C91.0614 37.2324 90.5392 37.3622 90.0823 37.5568C89.6253 37.7514 89.299 38.0757 89.1031 38.5297V43.1351H87.1448V35.546H88.9073V37.1676C89.1684 36.6487 89.4948 36.2595 89.9517 35.9351C90.4087 35.6108 90.8003 35.4811 91.2573 35.4811C91.3878 35.4811 91.4531 35.4811 91.5184 35.4811C91.5836 35.4811 91.6489 35.4811 91.6489 35.4811V37.2324Z" fill="#2AAEBC"/>
+<path d="M95.6961 43.2649C95.3697 43.2649 95.0433 43.2649 94.717 43.2C94.3906 43.1351 94.0642 43.0703 93.7378 43.0054C93.4114 42.9405 93.085 42.8108 92.8239 42.6811C92.5628 42.5514 92.3017 42.4216 92.0406 42.2919L92.8239 40.9946C93.8031 41.6432 94.7169 41.9027 95.6308 41.9027C96.0225 41.9027 96.3489 41.8378 96.61 41.7081C96.8711 41.5784 96.9364 41.3838 96.9364 41.0595C96.9364 40.7351 96.8058 40.6054 96.5447 40.4757C96.2836 40.346 95.8267 40.2162 95.1739 40.0216C94.6517 39.8919 94.26 39.7622 93.9336 39.6324C93.6072 39.5027 93.2809 39.373 93.085 39.1784C92.8892 38.9838 92.6934 38.8541 92.6281 38.5946C92.5628 38.4 92.4975 38.1405 92.4975 37.8162C92.4975 37.427 92.5628 37.1027 92.7586 36.7784C92.8892 36.4541 93.1503 36.1946 93.4114 36C93.6725 35.8054 93.9989 35.6108 94.3906 35.4811C94.7822 35.3514 95.1739 35.2865 95.6308 35.2865C96.153 35.2865 96.7405 35.3514 97.2628 35.5459C97.785 35.7405 98.3072 35.9351 98.7641 36.2595L97.9808 37.4919C97.5239 37.2324 97.1322 37.0378 96.7405 36.9081C96.3489 36.7784 95.9572 36.7135 95.6308 36.7135C95.3044 36.7135 94.9781 36.7784 94.7822 36.9081C94.5211 37.0378 94.4558 37.2324 94.4558 37.5568C94.4558 37.8162 94.5864 38.0108 94.7822 38.1405C94.9781 38.2703 95.435 38.4 96.0225 38.5297C96.5447 38.6595 97.0016 38.7892 97.3933 38.9189C97.785 39.0487 98.1114 39.1784 98.3072 39.373C98.5683 39.5676 98.7641 39.7622 98.8294 39.9568C98.96 40.1514 99.0252 40.4757 99.0252 40.8C99.0252 41.1892 98.96 41.5135 98.8294 41.773C98.6988 42.0973 98.4377 42.3568 98.1766 42.5514C97.9155 42.7459 97.5891 42.9405 97.1975 43.0054C96.61 43.2 96.153 43.2649 95.6961 43.2649Z" fill="#2AAEBC"/>
+<path d="M103.66 43.2649C103.072 43.2649 102.485 43.1351 102.028 42.9405C101.506 42.746 101.114 42.4216 100.788 42.0973C100.461 41.773 100.2 41.3189 100.004 40.8649C99.8085 40.4108 99.7433 39.8919 99.7433 39.373C99.7433 38.8541 99.8085 38.3351 100.004 37.8162C100.2 37.3622 100.461 36.9081 100.788 36.5838C101.114 36.1946 101.571 35.9351 102.093 35.7405C102.615 35.546 103.138 35.4162 103.79 35.4162C104.443 35.4162 104.965 35.546 105.488 35.7405C105.945 35.9351 106.402 36.2595 106.728 36.5838C107.054 36.9081 107.315 37.3622 107.511 37.8162C107.707 38.2703 107.772 38.7892 107.772 39.3081C107.772 39.4378 107.772 39.5676 107.772 39.6973C107.772 39.827 107.772 39.8919 107.707 39.9568H101.832C101.832 40.2811 101.963 40.5405 102.028 40.7351C102.093 40.9297 102.289 41.1892 102.485 41.3189C102.681 41.4487 102.877 41.5784 103.138 41.7081C103.399 41.773 103.595 41.8378 103.856 41.8378C104.247 41.8378 104.639 41.773 104.965 41.5784C105.292 41.3838 105.553 41.1243 105.683 40.8649L107.381 41.3189C107.12 41.9027 106.663 42.3568 106.01 42.746C105.227 43.0703 104.508 43.2649 103.66 43.2649ZM105.618 38.7243C105.553 38.1405 105.357 37.6865 104.965 37.3622C104.574 37.0378 104.117 36.8432 103.595 36.8432C103.333 36.8432 103.072 36.9081 102.877 36.973C102.681 37.0378 102.42 37.1676 102.289 37.3622C102.093 37.5568 101.963 37.7514 101.832 37.946C101.702 38.2054 101.636 38.4649 101.636 38.7243H105.618Z" fill="#2AAEBC"/>
+<path d="M47.4564 0V48" stroke="#99A4B5" stroke-miterlimit="10"/>
+<path d="M22.1289 45.5351C26.0455 45.4054 29.5705 43.7189 32.1816 41.1892C34.9232 38.4649 36.5551 34.7676 36.5551 30.6162C36.5551 26.4649 34.8579 22.7676 32.1163 20.1081C29.5705 17.5135 26.1108 15.8919 22.1942 15.7622C29.1135 17.773 31.9857 24.4541 32.5079 29.6432C33.1607 36.4541 28.1997 44.0432 22.1289 45.5351ZM15.0137 45.5351C19.1262 45.5351 22.9122 43.8487 25.6539 41.1892C28.3955 38.4649 30.0274 34.7676 30.0274 30.6162C30.0274 26.5297 28.3302 22.7676 25.6539 20.0432C22.9122 17.3189 19.1914 15.6973 15.0137 15.6973C14.7526 15.6973 14.4915 15.6973 14.2304 15.6973V19.6541C14.4915 19.6541 14.7526 19.6541 15.0137 19.6541C18.0817 19.6541 20.8234 20.8865 22.7817 22.8324C24.74 24.7784 25.9802 27.5676 25.9802 30.5514C25.9802 33.6 24.74 36.3243 22.7817 38.2703C20.8234 40.2162 18.0165 41.4487 15.0137 41.4487C11.9457 41.4487 9.20406 40.2162 7.24575 38.2703C6.13604 37.1676 5.28744 35.8703 4.69994 34.3784C3.85134 32.173 3.9819 30.3568 3.9819 28.0865C3.9819 25.1027 3.9819 20.9514 3.9819 20.4324V9.34054L6.5277 10.7676V28.1514C6.5277 31.9784 6.33187 34.4432 9.53044 37.3622C11.0971 38.7892 13.186 39.7622 15.7318 39.9568C11.6193 37.427 10.5096 33.9243 10.5096 29.2541V20.4973V8.4973C6.98464 6.42162 3.52496 4.34595 0 2.20541V30.4216V30.6162C0 34.7027 1.6972 38.4649 4.37356 41.1892C7.11519 43.8487 10.836 45.5351 15.0137 45.5351Z" fill="url(#paint0_linear_1_3)"/>
+<defs>
+<linearGradient id="paint0_linear_1_3" x1="0" y1="23.8679" x2="36.534" y2="23.8679" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00A8D4"/>
+<stop offset="1" stop-color="#0ACCAB"/>
+</linearGradient>
+</defs>
+</svg></div>
+    <nav>
+      <div class="grp">Study</div>
+      <a data-tip="Weekly reading & study plan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>Study Planner</a>
+      <a data-tip="Score trends & weak topics"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 3 4-6"/></svg>My Progress</a>
+      <a data-tip="Course dates & seminars"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>Timetable</a>
+      <a class="active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4L20 8l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>Practice</a>
+      <div class="grp">Library</div>
+      <a data-tip="Readings & example answers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 0 1 2 -2h4a4 4 0 0 1 4 4a4 4 0 0 1 4 -4h4a2 2 0 0 1 2 2v12a1 1 0 0 1 -1 1h-6a3 3 0 0 0 -3 2a3 3 0 0 0 -3 -2h-6a1 1 0 0 1 -1 -1z"/><path d="M11 7v13"/></svg>Resources</a>
+      <a data-tip="Your saved answer templates"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/></svg>My Templates</a>
+      <div class="grp">Account</div>
+      <a data-tip="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V10a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>Notifications</a>
+    </nav>
+    <div class="profilewrap" id="profileWrap">
+      <div class="profilemenu" id="profileMenu">
+        <a><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg>Settings</a>
+        <a><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 1.8-2.5 3.5M12 17h.01"/></svg>Support</a>
+        <div class="pmdiv"></div>
+        <a class="danger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign out</a>
+      </div>
+      <button class="profilecard" id="profileBtn">
+        <span class="av">CD</span>
+        <span class="pinfo"><span class="pname">Caitlin Dwyer</span><span class="pmail">BEC Oct 2026 cohort</span></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 15l4-4 4 4M8 9l4-4 4 4"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumb" id="topCrumb">
+        <a>Practice</a><span class="sep">/</span><a>Week 1</a><span class="sep">/</span><span class="cur">Question 1 of 22</span>
+      </div>
+      <div class="savepill" id="savePill"><span class="dot"></span><span id="saveLabel">Saved just now</span></div>
+    </header>
+
+    <div class="content">
+      <div class="wrap">
+        <div class="pagehead">
+          <div class="titleblock">
+            <div class="eyebrow">Week 1 · Practice questions</div>
+            <h1>Evidence &amp; Procedure practice set
+              <span class="tt">
+                <button class="flagic" id="flagBtn" aria-pressed="false">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v18M6 4h11l-2.5 4L17 12H6"/></svg>
+                </button>
+                <span class="tt-bubble" id="flagTip">Flag this question to revisit later</span>
+              </span>
+            </h1>
+          </div>
+          <div class="headctrls">
+            <div class="timerbox">
+              <div class="tlbl">Timer
+                <span class="tt">
+                  <span class="infoic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>
+                  <span class="tt-bubble wide">2:15 — the same time you'll get per question in the real exam</span>
+                </span>
+              </div>
+              <button class="playbtn" id="playBtn" aria-label="Start timer">
+                <svg class="ic-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>
+                <svg class="ic-stop" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+              </button>
+              <span class="clockread" id="clock">02:15</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sectiondivider"></div>
+
+        <div class="qnavbar">
+          <button class="qjump" id="qJumpBtn"><span>Question <b>1</b> of 22</span><span class="car">▾</span></button>
+          <div class="qprogress"><div style="width:27%"></div></div>
+          <span class="qcount"><b>6</b> answered · <b>2</b> flagged</span>
+        </div>
+
+        <div class="qcard">
+          <div class="qn">QUESTION 1</div>
+          <div style="font-family:var(--hl); font-weight:600; font-size:16px; margin-bottom:8px">Evidence (Criminal)</div>
+          <p>Explain how the burden and standard of proof operate in a criminal case.</p>
+          <span class="marks">1 mark</span>
+        </div>
+
+        <div class="editor">
+          <div class="editor-top">
+            <span style="font-size:12.5px; color:var(--text-mute); font-weight:500">Your answer</span>
+            <div class="attemptsdd" id="attemptsDD">
+              <button class="attemptsbtn" id="attemptsBtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Previous attempts (14)<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="attemptsmenu" id="attemptsMenu"></div>
+            </div>
+          </div>
+          <div class="toolbar">
+            <button class="tbtn on" data-tt="Bold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 4h7a4 4 0 0 1 0 8H6zM6 12h8a4 4 0 0 1 0 8H6z"/></svg></button>
+            <button class="tbtn" data-tt="Italic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4h6M7 20h6M14 4l-4 16" stroke-linecap="round"/></svg></button>
+            <button class="tbtn" data-tt="Underline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 4v7a6 6 0 0 0 12 0V4M4 20h16" stroke-linecap="round"/></svg></button>
+            <button class="tbtn" data-tt="Strikethrough"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M8 7c0-1.7 1.8-3 4-3s4 1.1 4 2.6M8 17c0 1.7 1.8 3 4 3s4-1.3 4-3" stroke-linecap="round"/></svg></button>
+            <div class="tdiv"></div>
+            <button class="tselect">16px<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="tdiv"></div>
+            <button class="tbtn" data-tt="Bullet list"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="5" cy="18" r="1.2" fill="currentColor" stroke="none"/><path d="M9 6h11M9 12h11M9 18h11" stroke-linecap="round"/></svg></button>
+            <button class="tbtn" data-tt="Numbered list"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11" stroke-linecap="round"/><path d="M4 5.5h1.2V9M4 9h2M4.2 13c0-.8.7-1.2 1.3-1.2s1.2.4 1.2 1c0 .5-.3.8-.8 1.2L4.2 16h2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tbtn" data-tt="Quote"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h4v4c0 2.5-1.5 4-4 4M14 7h4v4c0 2.5-1.5 4-4 4"/></svg></button>
+            <div class="tdiv"></div>
+            <button class="tbtn" data-tt="Align left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h10M4 18h13" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="editor-body" contenteditable="true" id="editorBody"></div>
+          <div class="editor-foot">
+            <div class="wc"><span class="n" id="wcNum"><b>0</b> words</span><span class="goal">1-mark question — most students write 40–60 words</span></div>
+            <div class="efbtns"><button class="btn btn-neutral">Use template</button><button class="btn btn-primary">Self assessment</button></div>
+          </div>
+        </div>
+
+        <div class="bottomnav">
+          <button class="navbtn" id="prevBtn" disabled><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Previous</button>
+          <span class="navhint">Use <kbd>←</kbd> <kbd>→</kbd> to move between questions</span>
+          <button class="navbtn primary" id="nextBtn">Next<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="palscrim" id="palScrim">
+  <div class="palcard">
+    <div class="palhead"><h4>Jump to a question</h4><button class="iconbtn" id="palClose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="pallegend">
+      <span><i style="background:var(--brand-subtlest); border:1.5px solid var(--brand)"></i>Answered</span>
+      <span><i style="background:#fff; border:1.5px solid var(--line)"></i>Unanswered</span>
+      <span><i style="background:var(--warning-bold)"></i>Flagged</span>
+      <span><i style="background:var(--brand-bold)"></i>Current</span>
+    </div>
+    <div class="palgrid" id="palGrid"></div>
+  </div>
+</div>
+
+<script>
+/* ---- question palette (22 questions, mirrors ExamSoft-style navigator) ---- */
+const ANSWERED=[1,2,3,5,6,9], FLAGGED=[2,4], CURRENT=1, TOTAL=22;
+const palGrid=document.getElementById('palGrid');
+palGrid.innerHTML=Array.from({length:TOTAL},(_,i)=>i+1).map(n=>{
+  let cls='palchip'; if(ANSWERED.includes(n))cls+=' answered'; if(FLAGGED.includes(n))cls+=' flagged'; if(n===CURRENT)cls+=' current';
+  return `<button class="${cls}" data-q="${n}">${n}</button>`;
+}).join('');
+const palScrim=document.getElementById('palScrim');
+document.getElementById('qJumpBtn').addEventListener('click',()=>palScrim.classList.add('open'));
+document.getElementById('palClose').addEventListener('click',()=>palScrim.classList.remove('open'));
+palScrim.addEventListener('click',e=>{ if(e.target===palScrim) palScrim.classList.remove('open'); });
+palGrid.addEventListener('click',e=>{ const b=e.target.closest('.palchip'); if(b){ palScrim.classList.remove('open'); } });
+
+/* ---- flag toggle ---- */
+const flagBtn=document.getElementById('flagBtn'), flagTip=document.getElementById('flagTip');
+flagBtn.addEventListener('click',()=>{
+  const on=flagBtn.classList.toggle('on');
+  flagBtn.setAttribute('aria-pressed',on);
+  flagTip.textContent=on?'Flagged — click to unflag':'Flag this question to revisit later';
+});
+
+/* ---- timer: single toggle — default Play icon, tap to run (Stop icon, red), tap to reset (back to Play icon, 2:15) ---- */
+const playBtn=document.getElementById('playBtn'), clock=document.getElementById('clock');
+const START_SECONDS=135;
+let seconds=START_SECONDS, running=false, iv=setInterval(tick,1000);
+function renderClock(){
+  const m=String(Math.floor(seconds/60)).padStart(2,'0'), s=String(seconds%60).padStart(2,'0');
+  clock.textContent=m+':'+s;
+  clock.classList.toggle('warn', seconds<=90 && seconds>30);
+  clock.classList.toggle('danger', seconds<=30);
+}
+function tick(){ if(!running) return; seconds=Math.max(0,seconds-1); renderClock(); if(seconds===0) setRunning(false); }
+function setRunning(v){
+  running=v;
+  playBtn.classList.toggle('running',running);
+  playBtn.setAttribute('aria-label', running?'Stop and reset timer':'Start timer');
+  if(!running){ seconds=START_SECONDS; renderClock(); }
+}
+playBtn.addEventListener('click',()=>setRunning(!running));
+renderClock();
+
+/* ---- toolbar toggle states ---- */
+document.querySelectorAll('.tbtn[data-tt]').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
+
+/* ---- editor: word count + autosave simulation ---- */
+const body=document.getElementById('editorBody'), wcNum=document.getElementById('wcNum');
+const savePill=document.getElementById('savePill'), saveLabel=document.getElementById('saveLabel');
+let saveT;
+body.addEventListener('input',()=>{
+  const words=body.textContent.trim().split(/\s+/).filter(Boolean).length;
+  wcNum.innerHTML=`<b>${words}</b> words`;
+  savePill.classList.add('saving'); saveLabel.textContent='Saving…';
+  clearTimeout(saveT);
+  saveT=setTimeout(()=>{ savePill.classList.remove('saving'); saveLabel.textContent='Saved just now'; },700);
+});
+
+/* ---- previous attempts: reformatted dates, grouped, clustered duplicates ---- */
+function fmt(d,t){ return {d,t}; }
+const GROUPS=[
+ {label:'Last 30 days', items:[
+   ['23 Jul 2026','5:24 pm','done','8/10'], ['23 Jul 2026','5:20 pm','done','7/10'], ['23 Jul 2026','5:18 pm','pending',null],
+ ]},
+ {label:'Earlier in 2026', items:[
+   ['2 Jan 2026','3:35 pm','done','6/10'], ['2 Jan 2026','2:14 pm','pending',null],
+ ]},
+ {label:'2025', cluster:{label:'12 Jun 2025, 11:41 am', count:4, items:[
+   ['12 Jun 2025','11:42 am','done','5/10'], ['12 Jun 2025','11:41 am','done','5/10'],
+   ['12 Jun 2025','11:41 am','pending',null], ['12 Jun 2025','11:41 am','pending',null],
+ ]}, items:[
+   ['31 Jan 2025','5:49 am','done','4/10'],
+ ]},
+];
+const menu=document.getElementById('attemptsMenu');
+let html='';
+GROUPS.forEach((g,gi)=>{
+  html+=`<div class="amgrp">${g.label}</div>`;
+  if(g.cluster){
+    html+=`<div class="amcluster" data-c="${gi}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>${g.cluster.label} · ${g.cluster.count} versions saved that session</div>`;
+    html+=`<div class="amsub">`+g.cluster.items.map((it,ii)=>amitem(it,gi===0&&ii===0)).join('')+`</div>`;
+  }
+  html+=g.items.map((it,ii)=>amitem(it, gi===0&&ii===0)).join('');
+});
+function amitem(it,sel){
+  const [d,t,status,score]=it;
+  return `<div class="amitem${sel?' sel':''}"><div><div class="amdate">${d}</div><div class="amtime">${t}</div></div>${status==='done'?`<span class="amchip done">${score}</span>`:`<span class="amchip pending">Not assessed</span>`}</div>`;
+}
+menu.innerHTML=html;
+menu.querySelectorAll('.amcluster').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('open')));
+
+const dd=document.getElementById('attemptsDD');
+document.getElementById('attemptsBtn').addEventListener('click',e=>{ e.stopPropagation(); dd.classList.toggle('open'); });
+document.addEventListener('click',()=>dd.classList.remove('open'));
+menu.addEventListener('click',e=>e.stopPropagation());
+
+/* ---- prev/next + keyboard ---- */
+document.getElementById('nextBtn').addEventListener('click',()=>{ document.getElementById('prevBtn').disabled=false; });
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') document.getElementById('nextBtn').click();
+  if(e.key==='ArrowLeft' && !document.getElementById('prevBtn').disabled) document.getElementById('prevBtn').click();
+});
+
+/* ---- profile popover ---- */
+const profileWrap=document.getElementById('profileWrap');
+document.getElementById('profileBtn').addEventListener('click',e=>{ e.stopPropagation(); profileWrap.classList.toggle('open'); });
+document.addEventListener('click',()=>profileWrap.classList.remove('open'));
+document.getElementById('profileMenu').addEventListener('click',e=>e.stopPropagation());
+</script>
+</body>
+</html>
