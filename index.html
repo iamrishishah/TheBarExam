@@ -1,134 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Bar Exam Course — Design System</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Bar Exam Course — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200;300;400;500;600;700&family=Stack+Sans+Text:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-default:#FFFFFF; --bg-sunken:#F5F7F8; --bg-neutral-subtle:#ECEFF1; --bg-neutral:#E1E5E8; --bg-selected:#E4F7FB;
+    --text:#212830; --text-subtle:#4A525A; --text-subtlest:#666E76; --text-disabled:#889098; --text-inverse:#FFFFFF;
+    --border:#D2D8DC; --border-bold:#889098; --border-focused:#017F9F;
+    --brand-bold:#017F9F; --brand-boldest:#016F8F; --brand-pressed:#0A5A70; --brand:#00A8D4; --brand-teal:#0ACCAB;
+    --brand-subtlest:#E4F7FB; --text-brand:#016F8F; --icon-brand:#0092B8; --border-brand:#0092B8; --text-on-brand:#06323F;
+    --paper:#FBFCFD;
+    --shadow:0 1px 2px rgba(20,26,31,.06), 0 8px 24px -12px rgba(20,26,31,.18);
+    --shadow-lg:0 12px 40px -12px rgba(20,26,31,.28);
+    --grad:linear-gradient(120deg,#00A8D4 0%,#0ACCAB 100%);
+    --headline:"Stack Sans Headline","Segoe UI",system-ui,sans-serif;
+    --textf:"Stack Sans Text","Segoe UI",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+    --r-xs:4px; --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px; --r-full:999px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--text);font-family:var(--textf);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0a0a0a;
-      color: #f0f0f0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
+  /* ── Top bar ── */
+  .topbar{background:var(--bg-default);border-bottom:1px solid var(--border);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .logo .mark{width:34px;height:34px;border-radius:10px;background:var(--grad);position:relative;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+  .logo .mark::after{content:"b";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--headline);font-weight:600;font-size:20px;color:#fff}
+  .logo .wm{font-family:var(--headline);line-height:1.05;font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .logo .wm .t{color:var(--brand);font-weight:400;display:block;font-size:11px}
+  .logo .wm .c{color:var(--brand-teal)}
+  .topbar-tag{font-family:var(--mono);font-size:11px;color:var(--text-subtlest);background:var(--bg-neutral-subtle);border:1px solid var(--border);border-radius:var(--r-xs);padding:3px 9px}
 
-    .logo {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #666;
-      margin-bottom: 1rem;
-    }
+  /* ── Hero ── */
+  .hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 24px 80px;text-align:center}
+  .kicker{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-brand);background:var(--brand-subtlest);border:1px solid #B9E7F2;border-radius:var(--r-full);padding:4px 14px;display:inline-block;margin-bottom:24px}
+  h1{font-family:var(--headline);font-weight:600;font-size:clamp(32px,5vw,52px);line-height:1.05;letter-spacing:-.025em;margin-bottom:18px}
+  h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{max-width:52ch;margin:0 auto 48px;font-size:17px;line-height:1.6;color:var(--text-subtle)}
 
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+  /* ── Cards ── */
+  .cards{display:grid;grid-template-columns:repeat(2,320px);gap:16px;justify-content:center}
+  .card{background:var(--bg-default);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 28px 24px;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .15s ease,transform .2s ease,box-shadow .2s ease;cursor:pointer}
+  .card:hover{border-color:var(--border-brand);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .card-icon{width:40px;height:40px;border-radius:var(--r-md);background:var(--grad);display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex:none}
+  .card-icon svg{width:20px;height:20px;color:#fff;stroke:#fff;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+  .card-num{font-family:var(--mono);font-size:11px;color:var(--text-subtlest);margin-bottom:8px}
+  .card h2{font-family:var(--headline);font-weight:600;font-size:18px;letter-spacing:-.01em;margin-bottom:8px}
+  .card p{font-size:14px;color:var(--text-subtle);line-height:1.55;flex:1;margin-bottom:20px}
+  .card-link{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;color:var(--text-brand)}
+  .card-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s ease}
+  .card:hover .card-link svg{transform:translateX(3px)}
 
-    .subtitle {
-      font-size: 1.05rem;
-      color: #888;
-      text-align: center;
-      margin-bottom: 3rem;
-      max-width: 480px;
-    }
+  /* ── Divider ── */
+  .divider{width:100%;max-width:660px;margin:64px auto 0;display:flex;align-items:center;gap:16px}
+  .divider hr{flex:1;border:none;border-top:1px solid var(--border)}
+  .divider span{font-family:var(--mono);font-size:11px;color:var(--text-disabled);white-space:nowrap}
 
-    .cards {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+  /* ── Tokens strip ── */
+  .tokens{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;padding:0 24px 0}
+  .tok{font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:var(--r-xs);border:1px solid var(--border);color:var(--text-subtlest);background:var(--bg-default)}
 
-    .card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 1.75rem 2rem;
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 12px;
-      text-decoration: none;
-      color: inherit;
-      width: 280px;
-      transition: border-color 0.2s, background 0.2s;
-    }
+  /* ── Footer ── */
+  footer{border-top:1px solid var(--border);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;background:var(--bg-default)}
+  footer p{font-size:13px;color:var(--text-disabled)}
+  footer .vs{font-family:var(--mono);font-size:11px;color:var(--text-disabled);background:var(--bg-neutral-subtle);border:1px solid var(--border);border-radius:var(--r-xs);padding:2px 8px}
 
-    .card:hover {
-      border-color: #444;
-      background: #161616;
-    }
-
-    .card-tag {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #555;
-    }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .card-desc {
-      font-size: 0.875rem;
-      color: #666;
-      line-height: 1.5;
-    }
-
-    .arrow {
-      margin-top: 0.5rem;
-      font-size: 1.25rem;
-      color: #444;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .card:hover .arrow {
-      color: #aaa;
-      transform: translateX(4px);
-    }
-
-    footer {
-      margin-top: 4rem;
-      font-size: 0.75rem;
-      color: #333;
-    }
-  </style>
+  @media (max-width:720px){
+    .cards{grid-template-columns:1fr;max-width:340px}
+    .topbar{padding:0 20px}
+    footer{flex-direction:column;gap:8px;text-align:center}
+  }
+</style>
 </head>
 <body>
-  <p class="logo">The Bar Exam Course</p>
-  <h1>Design System</h1>
-  <p class="subtitle">UI components, patterns, and practice screens for the bar exam prep experience.</p>
+
+<!-- Top bar -->
+<header class="topbar">
+  <a class="logo" href="/">
+    <div class="mark"></div>
+    <div class="wm">
+      <span class="t">The Bar Exam</span>
+      <span><span class="c">Course</span></span>
+    </div>
+  </a>
+  <span class="topbar-tag">v1.0 · 2026</span>
+</header>
+
+<!-- Hero -->
+<main class="hero">
+  <div class="kicker">Design System</div>
+  <h1>One system for<br><span class="g">the whole platform</span></h1>
+  <p class="lede">The shared visual language for The Bar Exam Course — marketing site, student app, and admin portal. Built for consistency, accessibility, and speed.</p>
 
   <div class="cards">
+
     <a class="card" href="bec-design-system.html">
-      <span class="card-tag">Foundation</span>
-      <span class="card-title">Design System</span>
-      <span class="card-desc">Colors, typography, components, and core UI patterns.</span>
-      <span class="arrow">→</span>
+      <div class="card-icon">
+        <!-- Layers icon -->
+        <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      </div>
+      <div class="card-num">01</div>
+      <h2>Design System</h2>
+      <p>Color tokens, typography scales, corner-radius rules, component library, and voice & tone guidelines — everything product teams need to build consistently.</p>
+      <span class="card-link">
+        Open system
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
     </a>
+
     <a class="card" href="bec-practice-redesign.html">
-      <span class="card-tag">Product</span>
-      <span class="card-title">Practice Redesign</span>
-      <span class="card-desc">Redesigned practice question interface and experience.</span>
-      <span class="arrow">→</span>
+      <div class="card-icon">
+        <!-- Monitor icon -->
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="card-num">02</div>
+      <h2>Practice Redesign</h2>
+      <p>Redesigned practice question interface and student experience — applying the design system tokens to a real product screen for bar exam prep.</p>
+      <span class="card-link">
+        View redesign
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
     </a>
+
   </div>
 
-  <footer>The Bar Exam Course &copy; 2026</footer>
+  <div class="divider">
+    <hr>
+    <span>Core tokens</span>
+    <hr>
+  </div>
+
+  <div class="tokens">
+    <span class="tok" style="background:#00A8D4;color:#fff;border-color:#00A8D4">--brand</span>
+    <span class="tok" style="background:#0ACCAB;color:#fff;border-color:#0ACCAB">--brand-teal</span>
+    <span class="tok" style="background:#017F9F;color:#fff;border-color:#017F9F">--brand-bold</span>
+    <span class="tok" style="background:#E4F7FB;color:#016F8F;border-color:#B9E7F2">--brand-subtlest</span>
+    <span class="tok" style="background:#212830;color:#fff;border-color:#212830">--text</span>
+    <span class="tok" style="background:#F5F7F8;color:#4A525A;border-color:#D2D8DC">--bg-sunken</span>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <p>The Bar Exam Course &copy; 2026 &mdash; Design System</p>
+  <span class="vs">v1.0</span>
+</footer>
+
 </body>
 </html>
