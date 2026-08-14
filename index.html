@@ -31,27 +31,10 @@
   }
   body { display: flex; flex-direction: column; }
 
-  /* ── Top bar ── */
-  .topbar {
-    flex: none;
-    height: 58px;
-    background: var(--bg-default);
-    border-bottom: 1px solid var(--border);
-    padding: 0 36px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .logo { display: flex; align-items: center; gap: 0; text-decoration: none; }
+  .logo { display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
   .logo svg { display: block; }
-  .topbar-tag {
-    font-family: var(--mono); font-size: 11px;
-    color: var(--text-disabled);
-    background: var(--bg-neutral-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--r-xs);
-    padding: 3px 10px;
-  }
 
-  /* ── Main area fills remaining height ── */
+  /* ── Main area fills full height ── */
   .main {
     flex: 1; min-height: 0;
     display: flex; flex-direction: column;
@@ -124,22 +107,6 @@
   .card-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .14s; }
   .card:hover .card-link svg { transform: translateX(3px); }
 
-  /* ── Footer ── */
-  footer {
-    flex: none;
-    border-top: 1px solid var(--border);
-    padding: 0 36px;
-    height: 46px;
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--bg-default);
-  }
-  footer p { font-size: 12px; color: var(--text-disabled); }
-  footer .vs {
-    font-family: var(--mono); font-size: 10.5px; color: var(--text-disabled);
-    background: var(--bg-neutral-subtle); border: 1px solid var(--border);
-    border-radius: var(--r-xs); padding: 2px 8px;
-  }
-
   /* ── Responsive: on small screens allow scroll ── */
   @media (max-height: 640px), (max-width: 680px) {
     html, body { overflow: auto; height: auto; }
@@ -150,9 +117,9 @@
 </head>
 <body>
 
-<header class="topbar">
+<main class="main">
   <a class="logo" href="/">
-    <svg width="120" height="40" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="140" height="46" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M67.3659 5.64325H63.7104V14.9838H62.6659V5.64325H59.0104V4.73514H67.3659V5.64325Z" fill="#2AAEBC"/>
 <path d="M75.0685 14.9838H74.0894V10.7676C74.0894 9.92433 73.9588 9.27568 73.6324 8.82162C73.3061 8.36757 72.9144 8.17298 72.3269 8.17298C72.0658 8.17298 71.7394 8.23784 71.4783 8.36757C71.2172 8.4973 70.9561 8.62703 70.695 8.82162C70.4339 9.01622 70.238 9.21081 70.0422 9.47027C69.8464 9.72973 69.7158 9.98919 69.6505 10.3135V14.9189H68.6714V4.47568H69.6505V9.21081C69.9769 8.62703 70.3686 8.17298 70.8908 7.84865C71.413 7.52433 72.0005 7.32973 72.588 7.32973C73.0449 7.32973 73.3713 7.3946 73.6977 7.58919C74.0241 7.78379 74.2199 7.97838 74.4158 8.23784C74.6116 8.4973 74.7421 8.88649 74.8074 9.27568C74.8727 9.66487 74.938 10.1189 74.938 10.573V14.9838H75.0685Z" fill="#2AAEBC"/>
 <path d="M80.4213 15.1784C79.8991 15.1784 79.3768 15.0487 78.9199 14.8541C78.463 14.6595 78.0713 14.3351 77.6796 14.0108C77.3533 13.6216 77.0921 13.2324 76.8963 12.7784C76.7005 12.3243 76.6352 11.8054 76.6352 11.2865C76.6352 10.7676 76.7005 10.2487 76.8963 9.7946C77.0921 9.34054 77.3533 8.88649 77.6796 8.56216C78.006 8.23784 78.3977 7.91352 78.8546 7.71892C79.3116 7.52433 79.8338 7.3946 80.356 7.3946C80.8782 7.3946 81.4004 7.52433 81.8574 7.71892C82.3143 7.91352 82.706 8.23784 83.0324 8.56216C83.3587 8.95135 83.6199 9.34054 83.8157 9.7946C84.0115 10.2487 84.0768 10.7676 84.0768 11.2865C84.0768 11.3514 84.0768 11.4162 84.0768 11.5459C84.0768 11.6108 84.0768 11.6757 84.0768 11.6757H77.6796C77.6796 12.0649 77.8102 12.4541 77.9408 12.7784C78.0713 13.1027 78.3324 13.427 78.5282 13.6865C78.7894 13.9459 79.0505 14.1405 79.3768 14.2703C79.7032 14.4 80.0296 14.4649 80.4213 14.4649C80.6824 14.4649 80.9435 14.4 81.1393 14.3351C81.4004 14.2703 81.5963 14.2054 81.7921 14.0757C81.9879 13.9459 82.1838 13.8162 82.3143 13.6216C82.4449 13.427 82.5754 13.2973 82.706 13.0378L83.5546 13.2973C83.424 13.5568 83.2935 13.8162 83.0324 14.0757C82.8365 14.2703 82.5754 14.5297 82.3143 14.6595C82.0532 14.8541 81.7268 14.9838 81.4004 15.0487C81.1393 15.1135 80.8129 15.1784 80.4213 15.1784ZM83.2282 10.8324C83.2282 10.4432 83.0976 10.0541 82.9671 9.72973C82.8365 9.40541 82.5754 9.08108 82.3796 8.88649C82.1185 8.62703 81.8574 8.43243 81.531 8.3027C81.2046 8.17297 80.8782 8.10811 80.4866 8.10811C80.0949 8.10811 79.7685 8.17297 79.4421 8.3027C79.1157 8.43243 78.8546 8.62703 78.5935 8.88649C78.3324 9.14595 78.1366 9.40541 78.006 9.72973C77.8755 10.0541 77.7449 10.4432 77.7449 10.8324H83.2282Z" fill="#2AAEBC"/>
@@ -179,10 +146,6 @@
 </defs>
 </svg>
   </a>
-  <span class="topbar-tag">Design System &nbsp;·&nbsp; v1.0</span>
-</header>
-
-<main class="main">
   <div class="kicker">Design System</div>
   <h1>One system for<br><span class="g">the whole platform</span></h1>
   <p class="lede">The shared visual language for The Bar Exam Course — marketing site, student app, and admin portal.</p>
@@ -219,11 +182,6 @@
     </a>
   </div>
 </main>
-
-<footer>
-  <p>The Bar Exam Course &copy; 2026</p>
-  <span class="vs">v1.0</span>
-</footer>
 
 </body>
 </html>
