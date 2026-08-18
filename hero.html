@@ -49,13 +49,15 @@
   /* Left layout: image right-aligned */
   .layout-left .bg-img { background-position: center right; }
 
-  /* Center layout overlay — only fades bottom ~30%, top stays fully clear */
+  /* Center layout overlay — white base rising to cover entire content block */
   .layout-center .overlay {
     background: linear-gradient(to top,
-      rgba(255,255,255,.98) 0%,
-      rgba(255,255,255,.55) 16%,
-      rgba(255,255,255,.08) 32%,
-      rgba(255,255,255,0)   44%);
+      rgba(255,255,255,1)   0%,
+      rgba(255,255,255,.95) 18%,
+      rgba(255,255,255,.82) 34%,
+      rgba(255,255,255,.55) 50%,
+      rgba(255,255,255,.18) 64%,
+      rgba(255,255,255,0)   74%);
   }
   /* Center layout: image centered */
   .layout-center .bg-img { background-position: center center; }
@@ -306,9 +308,6 @@
     current = index;
     const v = variants[index];
 
-    // Apply this variant's default layout
-    setLayout(v.defaultLayout);
-
     // Switch background
     if (v.type === 'image') {
       bgVid.style.display = 'none';
@@ -330,6 +329,7 @@
     });
   }
 
+  setLayout(variants[0].defaultLayout);
   setVariant(0);
 </script>
 
