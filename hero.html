@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Bar Exam Course — Pass the bar, the first time.</title>
+<title>The Bar Exam Course — Hero Variants</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@400;500;600;700;800&family=Stack+Sans+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --brand-bold:#017F9F; --brand:#00A8D4; --brand-teal:#0ACCAB;
-    --text:#1A1F24; --text-subtle:#4A525A; --text-subtlest:#666E76;
+    --text:#1A1F24; --text-subtle:#4A525A;
     --grad:linear-gradient(120deg,#00A8D4 0%,#0ACCAB 100%);
     --headline:"Stack Sans Headline","Segoe UI",system-ui,sans-serif;
     --textf:"Stack Sans Text","Segoe UI",system-ui,sans-serif;
@@ -18,6 +18,46 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; overflow: hidden; background: #fff; font-family: var(--textf); -webkit-font-smoothing: antialiased; }
+
+  /* ── Hero wrapper ── */
+  .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+
+  /* ── Background layers ── */
+  .bg-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-repeat: no-repeat;
+    transition: opacity .5s ease;
+  }
+  .bg-vid {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Gradient overlays ── */
+  .overlay { position: absolute; inset: 0; pointer-events: none; }
+
+  /* Left layout overlay */
+  .layout-left .overlay {
+    background: linear-gradient(to right,
+      #ffffff 0%, #ffffff 30%,
+      rgba(255,255,255,.92) 42%,
+      rgba(255,255,255,.55) 54%,
+      rgba(255,255,255,0) 70%);
+  }
+  /* Left layout: image right-aligned */
+  .layout-left .bg-img { background-position: center right; }
+
+  /* Center layout overlay */
+  .layout-center .overlay {
+    background: linear-gradient(to top,
+      rgba(255,255,255,1) 0%,
+      rgba(255,255,255,.7) 30%,
+      rgba(255,255,255,.1) 60%,
+      rgba(255,255,255,0) 100%);
+  }
+  /* Center layout: image centered */
+  .layout-center .bg-img { background-position: center center; }
 
   /* ── Navbar ── */
   .nav-wrap {
@@ -31,109 +71,115 @@
     box-shadow: 0 2px 16px rgba(0,0,0,.08);
     display: flex; align-items: center;
     padding: 10px 14px 10px 18px;
-    gap: 0;
   }
   .nav-logo { display: flex; align-items: center; flex: none; text-decoration: none; }
   .nav-logo svg { display: block; }
-  .nav-links {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    gap: 4px; list-style: none;
-  }
+  .nav-links { flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; list-style: none; }
   .nav-links a {
     font-family: var(--textf); font-size: 14.5px; font-weight: 500;
     color: var(--text); text-decoration: none;
     padding: 7px 14px; border-radius: 999px;
-    transition: background .15s;
-    white-space: nowrap;
+    transition: background .15s; white-space: nowrap;
   }
   .nav-links a:hover { background: #f3f4f5; }
   .nav-cta {
-    flex: none;
-    background: var(--brand-bold); color: #fff;
+    flex: none; background: var(--brand-bold); color: #fff;
     font-family: var(--textf); font-size: 14.5px; font-weight: 600;
-    border: none; border-radius: 999px;
-    padding: 11px 24px; cursor: pointer;
-    text-decoration: none; white-space: nowrap;
+    border: none; border-radius: 999px; padding: 11px 24px;
+    cursor: pointer; text-decoration: none; white-space: nowrap;
     transition: background .15s;
   }
   .nav-cta:hover { background: #016F8F; }
 
-  /* ── Hero ── */
-  .hero {
-    position: relative; width: 100%; height: 100vh;
-    overflow: hidden; display: flex; flex-direction: column;
+  /* ── Hero content — LEFT layout ── */
+  .layout-left .hero-content {
+    position: absolute; z-index: 10;
+    top: 50%; transform: translateY(-50%);
+    left: 64px; max-width: 580px;
+    text-align: left;
+  }
+  /* ── Hero content — CENTER layout ── */
+  .layout-center .hero-content {
+    position: absolute; z-index: 10;
+    bottom: 120px; left: 50%; transform: translateX(-50%);
+    width: 700px; max-width: 90vw;
+    text-align: center;
   }
 
-  /* Photo — right half */
-  .hero-photo {
-    position: absolute; inset: 0;
-    background: url('caitlin.jpeg') center right / cover no-repeat;
-  }
-
-  /* Gradient overlay — left to right, white opaque → transparent */
-  .hero-fade {
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      to right,
-      #ffffff 0%,
-      #ffffff 32%,
-      rgba(255,255,255,0.92) 42%,
-      rgba(255,255,255,0.6) 54%,
-      rgba(255,255,255,0) 70%
-    );
-  }
-
-  /* Content */
-  .hero-content {
-    position: relative; z-index: 10;
-    flex: 1; display: flex; flex-direction: column; justify-content: center;
-    padding: 120px 64px 100px;
-    max-width: 620px;
-  }
   h1 {
     font-family: var(--headline); font-weight: 800;
-    font-size: clamp(48px, 5.5vw, 72px);
-    line-height: 1.05; letter-spacing: -.025em;
+    font-size: clamp(44px, 5vw, 68px);
+    line-height: 1.05; letter-spacing: -.025em; color: var(--text);
     margin-bottom: 4px;
-    color: var(--text);
   }
-  h1 .teal { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; }
   .hero-body {
     font-size: 16px; line-height: 1.65; color: var(--text-subtle);
-    max-width: 44ch; margin: 24px 0 36px;
+    margin: 22px 0 34px;
   }
+  .layout-left .hero-body { max-width: 42ch; }
+  .layout-center .hero-body { max-width: 54ch; margin-left: auto; margin-right: auto; }
+
   .hero-cta {
     display: inline-flex; align-items: center;
     background: var(--brand-bold); color: #fff;
     font-family: var(--textf); font-size: 15px; font-weight: 600;
-    border: none; border-radius: 10px;
-    padding: 14px 28px; cursor: pointer;
-    text-decoration: none; width: fit-content;
+    border: none; border-radius: 10px; padding: 14px 28px;
+    cursor: pointer; text-decoration: none;
     transition: background .15s;
   }
   .hero-cta:hover { background: #016F8F; }
 
-  /* Stats */
+  /* ── Stats ── */
   .hero-stats {
-    position: absolute; bottom: 36px; left: 64px; z-index: 10;
-    display: flex; align-items: center; gap: 32px;
+    position: absolute; z-index: 10;
+    display: flex; align-items: center; gap: 28px;
+    bottom: 36px;
   }
+  .layout-left .hero-stats { left: 64px; }
+  .layout-center .hero-stats { left: 50%; transform: translateX(-50%); }
+
   .stat { display: flex; align-items: baseline; gap: 3px; }
-  .stat .num {
-    font-family: var(--headline); font-weight: 700;
-    font-size: 17px; color: var(--text);
-  }
+  .stat .num { font-family: var(--headline); font-weight: 700; font-size: 17px; color: var(--text); }
   .stat .label { font-size: 14px; color: var(--text-subtle); }
-  .stat-sep {
-    width: 1px; height: 16px; background: #D2D8DC;
+  .stat-sep { width: 1px; height: 16px; background: #D2D8DC; }
+
+  /* ── Variant switcher ── */
+  .switcher {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 999px;
+    padding: 6px 8px;
+    display: flex; align-items: center; gap: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.12);
   }
+  .sw-btn {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    color: #666; background: transparent; border: none;
+    border-radius: 999px; padding: 5px 12px;
+    cursor: pointer; white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .sw-btn:hover { background: #f0f0f0; color: #222; }
+  .sw-btn.active {
+    background: var(--brand-bold); color: #fff;
+  }
+  .sw-sep { width: 1px; height: 16px; background: #E0E0E0; margin: 0 2px; }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-photo"></div>
-  <div class="hero-fade"></div>
+<div class="hero layout-left" id="hero">
+
+  <!-- Background (image or video injected by JS) -->
+  <div class="bg-img" id="bgImg"></div>
+  <video class="bg-vid" id="bgVid" autoplay muted loop playsinline style="display:none"></video>
+
+  <!-- Gradient overlay -->
+  <div class="overlay"></div>
 
   <!-- Navbar -->
   <div class="nav-wrap">
@@ -157,15 +203,10 @@
 <path d="M95.6961 43.2649C95.3697 43.2649 95.0433 43.2649 94.717 43.2C94.3906 43.1351 94.0642 43.0703 93.7378 43.0054C93.4114 42.9405 93.085 42.8108 92.8239 42.6811C92.5628 42.5514 92.3017 42.4216 92.0406 42.2919L92.8239 40.9946C93.8031 41.6432 94.7169 41.9027 95.6308 41.9027C96.0225 41.9027 96.3489 41.8378 96.61 41.7081C96.8711 41.5784 96.9364 41.3838 96.9364 41.0595C96.9364 40.7351 96.8058 40.6054 96.5447 40.4757C96.2836 40.346 95.8267 40.2162 95.1739 40.0216C94.6517 39.8919 94.26 39.7622 93.9336 39.6324C93.6072 39.5027 93.2809 39.373 93.085 39.1784C92.8892 38.9838 92.6934 38.8541 92.6281 38.5946C92.5628 38.4 92.4975 38.1405 92.4975 37.8162C92.4975 37.427 92.5628 37.1027 92.7586 36.7784C92.8892 36.4541 93.1503 36.1946 93.4114 36C93.6725 35.8054 93.9989 35.6108 94.3906 35.4811C94.7822 35.3514 95.1739 35.2865 95.6308 35.2865C96.153 35.2865 96.7405 35.3514 97.2628 35.5459C97.785 35.7405 98.3072 35.9351 98.7641 36.2595L97.9808 37.4919C97.5239 37.2324 97.1322 37.0378 96.7405 36.9081C96.3489 36.7784 95.9572 36.7135 95.6308 36.7135C95.3044 36.7135 94.9781 36.7784 94.7822 36.9081C94.5211 37.0378 94.4558 37.2324 94.4558 37.5568C94.4558 37.8162 94.5864 38.0108 94.7822 38.1405C94.9781 38.2703 95.435 38.4 96.0225 38.5297C96.5447 38.6595 97.0016 38.7892 97.3933 38.9189C97.785 39.0487 98.1114 39.1784 98.3072 39.373C98.5683 39.5676 98.7641 39.7622 98.8294 39.9568C98.96 40.1514 99.0252 40.4757 99.0252 40.8C99.0252 41.1892 98.96 41.5135 98.8294 41.773C98.6988 42.0973 98.4377 42.3568 98.1766 42.5514C97.9155 42.7459 97.5891 42.9405 97.1975 43.0054C96.61 43.2 96.153 43.2649 95.6961 43.2649Z" fill="#2AAEBC"/>
 <path d="M103.66 43.2649C103.072 43.2649 102.485 43.1351 102.028 42.9405C101.506 42.746 101.114 42.4216 100.788 42.0973C100.461 41.773 100.2 41.3189 100.004 40.8649C99.8085 40.4108 99.7433 39.8919 99.7433 39.373C99.7433 38.8541 99.8085 38.3351 100.004 37.8162C100.2 37.3622 100.461 36.9081 100.788 36.5838C101.114 36.1946 101.571 35.9351 102.093 35.7405C102.615 35.546 103.138 35.4162 103.79 35.4162C104.443 35.4162 104.965 35.546 105.488 35.7405C105.945 35.9351 106.402 36.2595 106.728 36.5838C107.054 36.9081 107.315 37.3622 107.511 37.8162C107.707 38.2703 107.772 38.7892 107.772 39.3081C107.772 39.4378 107.772 39.5676 107.772 39.6973C107.772 39.827 107.772 39.8919 107.707 39.9568H101.832C101.832 40.2811 101.963 40.5405 102.028 40.7351C102.093 40.9297 102.289 41.1892 102.485 41.3189C102.681 41.4487 102.877 41.5784 103.138 41.7081C103.399 41.773 103.595 41.8378 103.856 41.8378C104.247 41.8378 104.639 41.773 104.965 41.5784C105.292 41.3838 105.553 41.1243 105.683 40.8649L107.381 41.3189C107.12 41.9027 106.663 42.3568 106.01 42.746C105.227 43.0703 104.508 43.2649 103.66 43.2649ZM105.618 38.7243C105.553 38.1405 105.357 37.6865 104.965 37.3622C104.574 37.0378 104.117 36.8432 103.595 36.8432C103.333 36.8432 103.072 36.9081 102.877 36.973C102.681 37.0378 102.42 37.1676 102.289 37.3622C102.093 37.5568 101.963 37.7514 101.832 37.946C101.702 38.2054 101.636 38.4649 101.636 38.7243H105.618Z" fill="#2AAEBC"/>
 <path d="M47.4564 0V48" stroke="#99A4B5" stroke-miterlimit="10"/>
-<path d="M22.1289 45.5351C26.0455 45.4054 29.5705 43.7189 32.1816 41.1892C34.9232 38.4649 36.5551 34.7676 36.5551 30.6162C36.5551 26.4649 34.8579 22.7676 32.1163 20.1081C29.5705 17.5135 26.1108 15.8919 22.1942 15.7622C29.1135 17.773 31.9857 24.4541 32.5079 29.6432C33.1607 36.4541 28.1997 44.0432 22.1289 45.5351ZM15.0137 45.5351C19.1262 45.5351 22.9122 43.8487 25.6539 41.1892C28.3955 38.4649 30.0274 34.7676 30.0274 30.6162C30.0274 26.5297 28.3302 22.7676 25.6539 20.0432C22.9122 17.3189 19.1914 15.6973 15.0137 15.6973C14.7526 15.6973 14.4915 15.6973 14.2304 15.6973V19.6541C14.4915 19.6541 14.7526 19.6541 15.0137 19.6541C18.0817 19.6541 20.8234 20.8865 22.7817 22.8324C24.74 24.7784 25.9802 27.5676 25.9802 30.5514C25.9802 33.6 24.74 36.3243 22.7817 38.2703C20.8234 40.2162 18.0165 41.4487 15.0137 41.4487C11.9457 41.4487 9.20406 40.2162 7.24575 38.2703C6.13604 37.1676 5.28744 35.8703 4.69994 34.3784C3.85134 32.173 3.9819 30.3568 3.9819 28.0865C3.9819 25.1027 3.9819 20.9514 3.9819 20.4324V9.34054L6.5277 10.7676V28.1514C6.5277 31.9784 6.33187 34.4432 9.53044 37.3622C11.0971 38.7892 13.186 39.7622 15.7318 39.9568C11.6193 37.427 10.5096 33.9243 10.5096 29.2541V20.4973V8.4973C6.98464 6.42162 3.52496 4.34595 0 2.20541V30.4216V30.6162C0 34.7027 1.6972 38.4649 4.37356 41.1892C7.11519 43.8487 10.836 45.5351 15.0137 45.5351Z" fill="url(#g_hero)"/>
-<defs>
-<linearGradient id="g_hero" x1="0" y1="23.8679" x2="36.534" y2="23.8679" gradientUnits="userSpaceOnUse">
-<stop stop-color="#00A8D4"/><stop offset="1" stop-color="#0ACCAB"/>
-</linearGradient>
-</defs>
+<path d="M22.1289 45.5351C26.0455 45.4054 29.5705 43.7189 32.1816 41.1892C34.9232 38.4649 36.5551 34.7676 36.5551 30.6162C36.5551 26.4649 34.8579 22.7676 32.1163 20.1081C29.5705 17.5135 26.1108 15.8919 22.1942 15.7622C29.1135 17.773 31.9857 24.4541 32.5079 29.6432C33.1607 36.4541 28.1997 44.0432 22.1289 45.5351ZM15.0137 45.5351C19.1262 45.5351 22.9122 43.8487 25.6539 41.1892C28.3955 38.4649 30.0274 34.7676 30.0274 30.6162C30.0274 26.5297 28.3302 22.7676 25.6539 20.0432C22.9122 17.3189 19.1914 15.6973 15.0137 15.6973C14.7526 15.6973 14.4915 15.6973 14.2304 15.6973V19.6541C14.4915 19.6541 14.7526 19.6541 15.0137 19.6541C18.0817 19.6541 20.8234 20.8865 22.7817 22.8324C24.74 24.7784 25.9802 27.5676 25.9802 30.5514C25.9802 33.6 24.74 36.3243 22.7817 38.2703C20.8234 40.2162 18.0165 41.4487 15.0137 41.4487C11.9457 41.4487 9.20406 40.2162 7.24575 38.2703C6.13604 37.1676 5.28744 35.8703 4.69994 34.3784C3.85134 32.173 3.9819 30.3568 3.9819 28.0865C3.9819 25.1027 3.9819 20.9514 3.9819 20.4324V9.34054L6.5277 10.7676V28.1514C6.5277 31.9784 6.33187 34.4432 9.53044 37.3622C11.0971 38.7892 13.186 39.7622 15.7318 39.9568C11.6193 37.427 10.5096 33.9243 10.5096 29.2541V20.4973V8.4973C6.98464 6.42162 3.52496 4.34595 0 2.20541V30.4216V30.6162C0 34.7027 1.6972 38.4649 4.37356 41.1892C7.11519 43.8487 10.836 45.5351 15.0137 45.5351Z" fill="url(#g_nav)"/>
+<defs><linearGradient id="g_nav" x1="0" y1="23.8679" x2="36.534" y2="23.8679" gradientUnits="userSpaceOnUse"><stop stop-color="#00A8D4"/><stop offset="1" stop-color="#0ACCAB"/></linearGradient></defs>
         </svg>
       </a>
-
       <ul class="nav-links">
         <li><a href="#">The Course</a></li>
         <li><a href="#">How it works</a></li>
@@ -174,45 +215,102 @@
         <li><a href="#">Pricing</a></li>
         <li><a href="#">FAQs</a></li>
       </ul>
-
       <a class="nav-cta" href="#">Book a Call</a>
     </nav>
   </div>
 
   <!-- Hero content -->
-  <div class="hero-content">
-    <h1>
-      Pass the bar,
-      <span class="teal">the first time.</span>
-    </h1>
+  <div class="hero-content" id="heroContent">
+    <h1>Pass the bar,<span class="grad">the first time.</span></h1>
     <p class="hero-body">A 15 week, proven study system built by a barrister who's coached 880+ candidates through it with a structured plan, seven practice exams, and feedback that's actually yours.</p>
     <a class="hero-cta" href="#">Enrol now - $2,695</a>
   </div>
 
-  <!-- Stats bar -->
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="num">880+</span>
-      <span class="label">Past enrolees</span>
-    </div>
+  <!-- Stats -->
+  <div class="hero-stats" id="heroStats">
+    <div class="stat"><span class="num">880+</span><span class="label">Past enrolees</span></div>
     <div class="stat-sep"></div>
-    <div class="stat">
-      <span class="num">14th</span>
-      <span class="label">iteration</span>
-    </div>
+    <div class="stat"><span class="num">14th</span><span class="label">iteration</span></div>
     <div class="stat-sep"></div>
-    <div class="stat">
-      <span class="num">7</span>
-      <span class="label">practice exams</span>
-    </div>
+    <div class="stat"><span class="num">7</span><span class="label">practice exams</span></div>
     <div class="stat-sep"></div>
-    <div class="stat">
-      <span class="num">2017</span>
-      <span class="label">founded</span>
-    </div>
+    <div class="stat"><span class="num">2017</span><span class="label">founded</span></div>
   </div>
 
 </div>
+
+<!-- Variant switcher -->
+<div class="switcher" id="switcher"></div>
+
+<script>
+  const variants = [
+    { label: 'Desk',     type: 'image', src: 'caitlin.jpeg',       layout: 'left'   },
+    { label: 'Library',  type: 'image', src: 'law-library.png',    layout: 'center' },
+    { label: 'Office',   type: 'image', src: 'office.png',         layout: 'left'   },
+    { label: 'Standing', type: 'image', src: 'standing-office.png',layout: 'left'   },
+    { label: 'Robe',     type: 'image', src: 'legal-robe.png',     layout: 'left'   },
+    { label: 'Video 1',  type: 'video', src: 'video1.mp4',         layout: 'left'   },
+    { label: 'Video 2',  type: 'video', src: 'video2.mp4',         layout: 'left'   },
+  ];
+
+  const hero    = document.getElementById('hero');
+  const bgImg   = document.getElementById('bgImg');
+  const bgVid   = document.getElementById('bgVid');
+  const switcher = document.getElementById('switcher');
+
+  let current = 0;
+
+  // Build switcher pills
+  variants.forEach((v, i) => {
+    if (i === 2) {
+      // separator between images and videos group
+    }
+    const btn = document.createElement('button');
+    btn.className = 'sw-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = v.label;
+    btn.onclick = () => setVariant(i);
+    // add separator before videos
+    if (i === 5) {
+      const sep = document.createElement('div');
+      sep.className = 'sw-sep';
+      switcher.appendChild(sep);
+    }
+    switcher.appendChild(btn);
+  });
+
+  function setVariant(index) {
+    const v = variants[index];
+    current = index;
+
+    // Update layout class
+    hero.classList.remove('layout-left', 'layout-center');
+    hero.classList.add('layout-' + v.layout);
+
+    // Switch background
+    if (v.type === 'image') {
+      bgVid.style.display = 'none';
+      bgVid.pause();
+      bgVid.src = '';
+      bgImg.style.backgroundImage = `url('${v.src}')`;
+      bgImg.style.display = 'block';
+    } else {
+      bgImg.style.display = 'none';
+      bgImg.style.backgroundImage = '';
+      bgVid.src = v.src;
+      bgVid.style.display = 'block';
+      bgVid.load();
+      bgVid.play();
+    }
+
+    // Update active pill
+    switcher.querySelectorAll('.sw-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+  }
+
+  // Init with first variant
+  setVariant(0);
+</script>
 
 </body>
 </html>
