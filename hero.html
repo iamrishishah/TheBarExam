@@ -49,13 +49,13 @@
   /* Left layout: image right-aligned */
   .layout-left .bg-img { background-position: center right; }
 
-  /* Center layout overlay */
+  /* Center layout overlay — only fades bottom ~30%, top stays fully clear */
   .layout-center .overlay {
     background: linear-gradient(to top,
-      rgba(255,255,255,1) 0%,
-      rgba(255,255,255,.7) 30%,
-      rgba(255,255,255,.1) 60%,
-      rgba(255,255,255,0) 100%);
+      rgba(255,255,255,.98) 0%,
+      rgba(255,255,255,.55) 16%,
+      rgba(255,255,255,.08) 32%,
+      rgba(255,255,255,0)   44%);
   }
   /* Center layout: image centered */
   .layout-center .bg-img { background-position: center center; }
@@ -102,7 +102,7 @@
   /* ── Hero content — CENTER layout ── */
   .layout-center .hero-content {
     position: absolute; z-index: 10;
-    bottom: 120px; left: 50%; transform: translateX(-50%);
+    bottom: 88px; left: 50%; transform: translateX(-50%);
     width: 700px; max-width: 90vw;
     text-align: center;
   }
@@ -245,47 +245,69 @@
 
 <script>
   const variants = [
-    { label: 'Desk',     type: 'image', src: 'caitlin.jpeg',       layout: 'left'   },
-    { label: 'Library',  type: 'image', src: 'law-library.png',    layout: 'center' },
-    { label: 'Office',   type: 'image', src: 'office.png',         layout: 'left'   },
-    { label: 'Standing', type: 'image', src: 'standing-office.png',layout: 'left'   },
-    { label: 'Robe',     type: 'image', src: 'legal-robe.png',     layout: 'left'   },
-    { label: 'Video 1',  type: 'video', src: 'video1.mp4',         layout: 'left'   },
-    { label: 'Video 2',  type: 'video', src: 'video2.mp4',         layout: 'left'   },
+    { label: 'Desk',     type: 'image', src: 'caitlin.jpeg',        defaultLayout: 'left'   },
+    { label: 'Library',  type: 'image', src: 'law-library.png',     defaultLayout: 'center' },
+    { label: 'Standing', type: 'image', src: 'standing-office.png', defaultLayout: 'left'   },
+    { label: 'Robe',     type: 'image', src: 'legal-robe.png',      defaultLayout: 'left'   },
+    { label: 'Video 1',  type: 'video', src: 'video1.mp4',          defaultLayout: 'left'   },
+    { label: 'Video 2',  type: 'video', src: 'video2.mp4',          defaultLayout: 'left'   },
   ];
 
-  const hero    = document.getElementById('hero');
-  const bgImg   = document.getElementById('bgImg');
-  const bgVid   = document.getElementById('bgVid');
+  const hero     = document.getElementById('hero');
+  const bgImg    = document.getElementById('bgImg');
+  const bgVid    = document.getElementById('bgVid');
   const switcher = document.getElementById('switcher');
 
   let current = 0;
+  let activeLayout = 'left';
 
-  // Build switcher pills
+  // ── Layout toggle ──
+  const layoutGroup = document.createElement('div');
+  layoutGroup.style.cssText = 'display:flex;gap:2px;';
+  ['Left','Center'].forEach(lbl => {
+    const b = document.createElement('button');
+    b.className = 'sw-btn layout-btn' + (lbl === 'Left' ? ' active' : '');
+    b.textContent = lbl;
+    b.dataset.layout = lbl.toLowerCase();
+    b.onclick = () => setLayout(lbl.toLowerCase());
+    layoutGroup.appendChild(b);
+  });
+  switcher.appendChild(layoutGroup);
+
+  // separator
+  const sep0 = document.createElement('div');
+  sep0.className = 'sw-sep';
+  switcher.appendChild(sep0);
+
+  // ── Media pills ──
   variants.forEach((v, i) => {
-    if (i === 2) {
-      // separator between images and videos group
-    }
-    const btn = document.createElement('button');
-    btn.className = 'sw-btn' + (i === 0 ? ' active' : '');
-    btn.textContent = v.label;
-    btn.onclick = () => setVariant(i);
-    // add separator before videos
-    if (i === 5) {
+    if (i === 4) {
       const sep = document.createElement('div');
       sep.className = 'sw-sep';
       switcher.appendChild(sep);
     }
+    const btn = document.createElement('button');
+    btn.className = 'sw-btn media-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = v.label;
+    btn.onclick = () => setVariant(i);
     switcher.appendChild(btn);
   });
 
-  function setVariant(index) {
-    const v = variants[index];
-    current = index;
-
-    // Update layout class
+  function setLayout(layout) {
+    activeLayout = layout;
     hero.classList.remove('layout-left', 'layout-center');
-    hero.classList.add('layout-' + v.layout);
+    hero.classList.add('layout-' + layout);
+    switcher.querySelectorAll('.layout-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.layout === layout);
+    });
+  }
+
+  function setVariant(index) {
+    current = index;
+    const v = variants[index];
+
+    // Apply this variant's default layout
+    setLayout(v.defaultLayout);
 
     // Switch background
     if (v.type === 'image') {
@@ -303,13 +325,11 @@
       bgVid.play();
     }
 
-    // Update active pill
-    switcher.querySelectorAll('.sw-btn').forEach((btn, i) => {
+    switcher.querySelectorAll('.media-btn').forEach((btn, i) => {
       btn.classList.toggle('active', i === index);
     });
   }
 
-  // Init with first variant
   setVariant(0);
 </script>
 
