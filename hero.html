@@ -97,7 +97,7 @@
     margin-bottom: 4px;
     color: var(--text);
   }
-  h1 .teal { color: var(--brand); display: block; }
+  h1 .teal { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; }
   .hero-body {
     font-size: 16px; line-height: 1.65; color: var(--text-subtle);
     max-width: 44ch; margin: 24px 0 36px;
@@ -123,7 +123,6 @@
     font-family: var(--headline); font-weight: 700;
     font-size: 17px; color: var(--text);
   }
-  .stat .num.teal { color: var(--brand); }
   .stat .label { font-size: 14px; color: var(--text-subtle); }
   .stat-sep {
     width: 1px; height: 16px; background: #D2D8DC;
@@ -193,7 +192,7 @@
   <!-- Stats bar -->
   <div class="hero-stats">
     <div class="stat">
-      <span class="num teal">880+</span>
+      <span class="num">880+</span>
       <span class="label">Past enrolees</span>
     </div>
     <div class="stat-sep"></div>
