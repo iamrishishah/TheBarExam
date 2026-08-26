@@ -6,7 +6,7 @@
 <title>The Bar Exam Course — Design System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200;300;400;500;600;700&family=Stack+Sans+Text:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;1,400;1,500&family=Newsreader:ital,wght@0,400;1,400;1,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200;300;400;500;600;700&family=Stack+Sans+Text:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg-default:#FFFFFF; --bg-sunken:#F5F7F8; --bg-neutral-subtle:#ECEFF1; --bg-neutral:#E1E5E8; --bg-neutral-bold:#212830; --bg-selected:#E4F7FB;
@@ -136,7 +136,7 @@
   .fam .nm{font-size:14px; color:var(--text-subtlest); margin-top:12px} .fam .nm b{color:var(--text)}
   .fam .glyphs{margin-top:12px; font-size:15px; color:var(--text-subtle)}
   .fh .bigt{font-family:var(--headline)} .ft .bigt{font-family:var(--textf)}
-  .fm .bigt{font-family:var(--mono)} .fs .bigt{font-family:"Source Serif 4",Georgia,serif; font-style:italic}
+  .fm .bigt{font-family:var(--mono)} .fs .bigt{font-style:italic}
   .weights{display:grid; grid-template-columns:repeat(auto-fill,minmax(138px,1fr)); gap:12px}
   .wt{background:var(--bg-default); border:1px solid var(--border); border-radius:var(--r-md); padding:14px 16px}
   .wt .n{font-size:30px; line-height:1; font-family:var(--headline)} .wt .l{font-family:var(--mono); font-size:11px; color:var(--text-subtlest); margin-top:10px}
@@ -152,11 +152,7 @@
   .cmp .box{background:var(--bg-default); border:1px solid var(--border); border-radius:var(--r-md); padding:18px 20px}
   .cmp .lbl{font-family:var(--mono); font-size:11px; color:var(--text-subtlest); margin-bottom:10px}
   .cite-italic{font-style:italic} .cite-weight{font-weight:500; color:var(--text-brand)}
-  /* case-name italic candidates — client review */
-  .italic-src{font-family:"Source Serif 4",Georgia,serif; font-style:italic; font-weight:400}
-  .italic-news{font-family:"Newsreader",Georgia,serif; font-style:italic; font-weight:400}
-  .font-plex{font-family:"IBM Plex Sans",sans-serif} .font-plex em{font-style:italic; font-weight:400}
-  .font-inter{font-family:"Inter",sans-serif} .font-inter em{font-style:italic; font-weight:400}
+  .italic-src{font-style:italic}
   .fcandgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px}
   @media (max-width:820px){ .fcandgrid{grid-template-columns:1fr} }
   .fcand{background:var(--bg-default); border:1px solid var(--border); border-radius:var(--r-lg); padding:20px 22px}
@@ -179,12 +175,12 @@
   .exhibit-foot{padding:12px 26px 18px; font-size:11.5px; color:var(--text-subtlest); font-style:italic}
   .ann{padding:0 3px; border-radius:4px; box-decoration-break:clone; -webkit-box-decoration-break:clone; background:none}
   .ann::after{content:attr(data-n); font-family:var(--mono); font-size:9px; font-weight:700; vertical-align:super; margin-left:2px; opacity:.75}
-  mark.italic-src.ann{background:rgba(0,146,184,.12); color:inherit}
+  mark.italic-src.ann{color:inherit}
   .ann-bold{background:rgba(108,55,192,.12)}
-  .ann-underline{background:rgba(19,123,67,.14)}
-  .ann-strike{background:rgba(180,36,36,.12)} .ann-strike s{color:var(--text-danger)}
+  .ann-underline{}
+  .ann-strike{}
   .ann-quote{background:rgba(44,75,196,.10)}
-  .ann-cite{background:rgba(137,144,152,.16); font-family:var(--mono); font-size:14.5px}
+  .ann-cite{background:rgba(137,144,152,.16)}
   ol.ann-list.ann-num{background:rgba(181,116,7,.07); border-radius:var(--r-md); padding:14px 14px 14px 34px}
   ul.ann-list.ann-bullet{background:rgba(102,110,118,.06); border-radius:var(--r-md); padding:14px 14px 14px 34px}
   ol.ann-list.ann-num::before{content:"6"; display:block; font-family:var(--mono); font-size:9px; font-weight:700; opacity:.6; margin:-3px 0 6px -18px}
@@ -792,7 +788,7 @@
         <div class="fam fh"><div class="role">Display · Headings</div><div class="bigt">Pass the bar</div><div class="nm"><b>Stack Sans Headline</b> · Semi Bold 600</div><div class="glyphs">AaBbGgKkQqRr &nbsp; 0123456789</div><a class="fdl" href="https://fonts.google.com/specimen/Stack+Sans+Headline" target="_blank" rel="noopener">↓ Google Fonts — Stack Sans Headline</a></div>
         <div class="fam ft"><div class="role">Body · Interface</div><div class="bigt">the first time</div><div class="nm"><b>Stack Sans Text</b> · Regular 400</div><div class="glyphs">AaBbGgKkQqRr &nbsp; 0123456789</div><a class="fdl" href="https://fonts.google.com/specimen/Stack+Sans+Text" target="_blank" rel="noopener">↓ Google Fonts — Stack Sans Text</a></div>
         <div class="fam fm"><div class="role">Code · Tokens · Data</div><div class="bigt">Aa 0123</div><div class="nm"><b>JetBrains Mono</b> · Regular 400</div><div class="glyphs">AaBbGgKkQqRr &nbsp; 0123456789</div><a class="fdl" href="https://fonts.google.com/specimen/JetBrains+Mono" target="_blank" rel="noopener">↓ Google Fonts — JetBrains Mono</a></div>
-        <div class="fam fs"><div class="role">Case names · Legislation</div><div class="bigt">Browne v Dunn</div><div class="nm"><b>Source Serif 4</b> · Italic 400</div><div class="glyphs">AaBbGgKkQqRr &nbsp; 0123456789</div><a class="fdl" href="https://fonts.google.com/specimen/Source+Serif+4" target="_blank" rel="noopener">↓ Google Fonts — Source Serif 4</a></div>
+        <div class="fam fs"><div class="role">Case names · Legislation</div><div class="bigt">Browne v Dunn</div><div class="nm"><b>Stack Sans Text</b> · Italic 400</div><div class="glyphs">AaBbGgKkQqRr &nbsp; 0123456789</div><a class="fdl" href="https://fonts.google.com/specimen/Stack+Sans+Text" target="_blank" rel="noopener">↓ Google Fonts — Stack Sans Text</a></div>
       </div>
       <h3 class="sub">Weights</h3>
       <div class="weights" id="weights"></div>
@@ -801,7 +797,7 @@
       <h3 class="sub">Interface &amp; data</h3>
       <div class="rows" id="uiRows"></div>
       <h3 class="sub">Case names &amp; legislation titles</h3>
-      <p class="desc">Case names and legislation titles are set in <b>Source Serif 4 italic</b> — a genuine cursive-influenced italic, used as a narrow-purpose accent face so italics satisfy the legal citation convention properly. Stack Sans continues to handle everything else in the system, unchanged.</p>
+      <p class="desc">Case names and legislation titles are set in <b>Stack Sans Text italic</b> — the same font as the rest of the system, styled with <code>font-style: italic</code>. No separate typeface is introduced. Legal citations and section numbers use the same body font as surrounding text; no monospace or serif switch.</p>
 
       <h3 class="sub">Seeing it in real use</h3>
       <p class="desc">A single worked passage rather than an isolated phrase — every formatting convention a legal document actually uses, applied at once, each one numbered against the table below so it's clear <i>why</i> that convention exists, not just that it does.</p>
@@ -830,14 +826,14 @@
         <table class="data legend-table">
           <thead><tr><th style="width:34%">Format</th><th>Why it's used</th></tr></thead>
           <tbody>
-            <tr><td><span class="ldot" style="background:#0092B8"></span><b>1 · Italic</b></td><td>Case names &amp; legislation titles — AGLC citation convention.</td></tr>
+            <tr><td><b>1 · Italic</b></td><td>Case names &amp; legislation titles — AGLC citation convention. Same font as body copy, italic weight.</td></tr>
             <tr><td><span class="ldot" style="background:#6C37C0"></span><b>2 · Bold</b></td><td>The operative legal test or duty, flagged on first mention.</td></tr>
-            <tr><td><span class="ldot" style="background:#137B43"></span><b>3 · Underline</b></td><td>Inserted wording in an amended pleading (UCPR r 382 / 19.5).</td></tr>
-            <tr><td><span class="ldot" style="background:#B42424"></span><b>4 · Strikethrough</b></td><td>Deleted wording in an amended pleading (same rule).</td></tr>
+            <tr><td><b>3 · Underline</b></td><td>Inserted wording in an amended pleading (UCPR r 382 / 19.5). No background colour.</td></tr>
+            <tr><td><b>4 · Strikethrough</b></td><td>Deleted wording in an amended pleading (same rule). No background colour.</td></tr>
             <tr><td><span class="ldot" style="background:#2C4BC4"></span><b>5 · Single quotes</b></td><td>Short quotation, ≤3 lines — AGLC uses single quotes, not double.</td></tr>
             <tr><td><span class="ldot" style="background:#B57407"></span><b>6 · Numbered list</b></td><td>Exhaustive, sequential elements of a test.</td></tr>
             <tr><td><span class="ldot" style="background:#666E76"></span><b>7 · Bullet list</b></td><td>Non-sequential factors a court may weigh.</td></tr>
-            <tr><td><span class="ldot" style="background:#889098"></span><b>8 · Citation numerals</b></td><td>Pinpoint reference — year, report series, section.</td></tr>
+            <tr><td><b>8 · Citation numerals</b></td><td>Pinpoint reference — year, report series, section. Same font as surrounding text.</td></tr>
           </tbody>
         </table>
       </div>
@@ -846,7 +842,7 @@
       <div class="pairs">
         <div class="pair"><h4>Headline lives large</h4>Headline at 18px and above — display, headings, titles.</div>
         <div class="pair"><h4>Text does everything small</h4>Text for body, labels, captions, inputs, data — 18px and under.</div>
-        <div class="pair"><h4>Emphasis is weight — except case names</h4>Bold-in-copy is 600. Case names and legislation titles use Source Serif 4 italic, the one deliberate exception to "no italics."</div>
+        <div class="pair"><h4>Emphasis is weight; italics stay in-family</h4>Bold-in-copy is 600. Case names and legislation titles use italic — same Stack Sans Text, no secondary typeface introduced.</div>
         <div class="pair"><h4>Three weights, mostly</h4>Compose with 400 / 500 / 600; 700 for rare emphasis only.</div>
       </div>
     </section>
@@ -1679,8 +1675,8 @@ for(const g of GROUPS){
 }
 document.getElementById('colourGroups').innerHTML=cg;
 
-const FAM={Headline:'"Stack Sans Headline",sans-serif',Text:'"Stack Sans Text",sans-serif',Mono:'"JetBrains Mono",monospace',Serif:'"Source Serif 4",Georgia,serif'};
-const FAMLABEL={Headline:"Stack Sans Headline",Text:"Stack Sans Text",Mono:"JetBrains Mono",Serif:"Source Serif 4"};
+const FAM={Headline:'"Stack Sans Headline",sans-serif',Text:'"Stack Sans Text",sans-serif',Mono:'"JetBrains Mono",monospace'};
+const FAMLABEL={Headline:"Stack Sans Headline",Text:"Stack Sans Text",Mono:"JetBrains Mono"};
 document.getElementById('weights').innerHTML=[["Extra Light",200],["Light",300],["Regular",400],["Medium",500],["Semi Bold",600],["Bold",700]].map(([n,w])=>`<div class="wt"><div class="n" style="font-weight:${w}">Aa</div><div class="l">${w} · ${n}</div></div>`).join('');
 const SCALE=[
  {name:"font.display.large",fam:"Headline",px:56,lh:1.05,w:600,tr:"-0.02em",samp:"Pass the bar, the first time",note:"Marketing hero."},
@@ -1701,7 +1697,7 @@ const UI=[
  {name:"font.label.small",fam:"Text",px:12,lh:1.3,w:500,tr:"0.01em",samp:"Add subject",note:"Chips, tabs."},
  {name:"font.data",fam:"Text",px:14,lh:1.4,w:500,tr:"0",feat:'"tnum" 1',samp:"1,452 · 1,012 · 561 · 880",note:"Tables — tabular figures."},
  {name:"font.code",fam:"Mono",px:13,lh:1.5,w:400,tr:"0",samp:"color.text.brand → #016F8F",note:"Token references."},
- {name:"font.citation",fam:"Serif",px:16,lh:1.55,w:400,tr:"0",ital:true,samp:"Browne v Dunn",note:"Case names & legislation titles only."},
+ {name:"font.citation",fam:"Text",px:16,lh:1.55,w:400,tr:"0",ital:true,samp:"Browne v Dunn",note:"Case names & legislation titles — italic, same typeface as body."},
 ];
 function styleFor(t){let s=`font-family:${FAM[t.fam]};font-weight:${t.w};line-height:${t.lh};letter-spacing:${t.tr};font-size:${t.px}px;`;if(t.tf)s+=`text-transform:${t.tf};`;if(t.feat)s+=`font-feature-settings:${t.feat};`;if(t.ital)s+=`font-style:italic;`;return s;}
 function tchips(t){let c=[FAMLABEL[t.fam],t.px+'px','w'+t.w,'lh '+t.lh];if(t.tr&&t.tr!=="0")c.push('ls '+t.tr);if(t.tf)c.push(t.tf);if(t.feat)c.push('tnum');if(t.ital)c.push('italic');return c.map(x=>`<span class="chip">${x}</span>`).join('');}

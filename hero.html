@@ -247,12 +247,14 @@
 
 <script>
   const variants = [
-    { label: 'Desk',     type: 'image', src: 'caitlin.jpeg',        defaultLayout: 'left'   },
-    { label: 'Library',  type: 'image', src: 'law-library.png',     defaultLayout: 'center' },
-    { label: 'Standing', type: 'image', src: 'standing-office.png', defaultLayout: 'left'   },
-    { label: 'Robe',     type: 'image', src: 'legal-robe.png',      defaultLayout: 'left'   },
-    { label: 'Video 1',  type: 'video', src: 'video1.mp4',          defaultLayout: 'left'   },
-    { label: 'Video 2',  type: 'video', src: 'video2.mp4',          defaultLayout: 'left'   },
+    { label: 'Desk',      type: 'image', src: 'caitlin.jpeg',        defaultLayout: 'left'   },
+    { label: 'Caitlin 1', type: 'image', src: 'caitlin-001.jpg',     defaultLayout: 'left'   },
+    { label: 'Caitlin 2', type: 'image', src: 'caitlin-002.jpg',     defaultLayout: 'left'   },
+    { label: 'Library',   type: 'image', src: 'law-library.png',     defaultLayout: 'center' },
+    { label: 'Standing',  type: 'image', src: 'standing-office.png', defaultLayout: 'left'   },
+    { label: 'Robe',      type: 'image', src: 'legal-robe.png',      defaultLayout: 'left'   },
+    { label: 'Video 1',   type: 'video', src: 'video1.mp4',          defaultLayout: 'left'   },
+    { label: 'Video 2',   type: 'video', src: 'video2.mp4',          defaultLayout: 'left'   },
   ];
 
   const hero     = document.getElementById('hero');
@@ -283,7 +285,7 @@
 
   // ── Media pills ──
   variants.forEach((v, i) => {
-    if (i === 4) {
+    if (i === 6) {
       const sep = document.createElement('div');
       sep.className = 'sw-sep';
       switcher.appendChild(sep);
